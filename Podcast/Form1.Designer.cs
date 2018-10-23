@@ -42,9 +42,10 @@
             this.Namn,
             this.Frekvens,
             this.Kategori});
-            this.listView1.Location = new System.Drawing.Point(316, 106);
+            this.listView1.Location = new System.Drawing.Point(89, 28);
+            this.listView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(555, 218);
+            this.listView1.Size = new System.Drawing.Size(629, 287);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -70,11 +71,10 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1172, 571);
+            this.ClientSize = new System.Drawing.Size(1138, 587);
             this.Controls.Add(this.listView1);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
