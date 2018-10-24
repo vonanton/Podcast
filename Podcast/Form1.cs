@@ -47,5 +47,15 @@ namespace Podcast
             AddItem();
             
         }
+
+        private void cbUpdateFrequency_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbDescription_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
