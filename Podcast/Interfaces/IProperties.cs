@@ -11,6 +11,6 @@ namespace Podcast.Interfaces
     {
         string Episodes { get; set; }
         string Title { get; set; }
-        string Description { get; set; }
+        string Summary { get; set; }
     }
 }

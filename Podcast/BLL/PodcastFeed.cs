@@ -2,6 +2,7 @@
 using Podcast.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Text;
@@ -17,7 +18,7 @@ namespace Podcast.BLL
 
         public string Episodes { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string Summary { get; set; }
         /*public override ListViewItem ToListViewItem()
         {
 
@@ -29,12 +30,19 @@ namespace Podcast.BLL
             readRss.LoadRss(url);
             Episodes = readRss.Episodes;
             Title = readRss.Title;
-
-            var listViewItem = new ListViewItem(new[] {
+            Summary = readRss.Summary;
+            for(int i = 0; i<5; i++)
+            {
+                var listViewItem = new ListViewItem(new[] {
                 Episodes,
                 Title,
+                Summary
             });
-            listView.Items.Add(listViewItem);
+
+                listView.Items.Add(listViewItem);
+            }
+            
+            
         }
 
         private int numberOfItems(string feedUrl)
