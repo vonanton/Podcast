@@ -8,5 +8,6 @@ namespace Podcast.BLL
 {
     class Category
     {
+
     }
 }
