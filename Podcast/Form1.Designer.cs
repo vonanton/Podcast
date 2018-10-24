@@ -28,60 +28,81 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lvFeed = new System.Windows.Forms.ListView();
+            this.Avsnitt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Namn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Frekvens = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Kategori = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // lvFeed
             // 
-            this.button1.Location = new System.Drawing.Point(333, 100);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 70);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.lvFeed.BackColor = System.Drawing.Color.BurlyWood;
+            this.lvFeed.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Avsnitt,
+            this.Namn,
+            this.Frekvens,
+            this.Kategori});
+            this.lvFeed.Location = new System.Drawing.Point(89, 102);
+            this.lvFeed.Name = "lvFeed";
+            this.lvFeed.Size = new System.Drawing.Size(555, 218);
+            this.lvFeed.TabIndex = 0;
+            this.lvFeed.UseCompatibleStateImageBehavior = false;
+            this.lvFeed.View = System.Windows.Forms.View.Details;
             // 
-            // textBox1
+            // Avsnitt
             // 
-            this.textBox1.Location = new System.Drawing.Point(333, 319);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(132, 22);
-            this.textBox1.TabIndex = 1;
+            this.Avsnitt.Text = "Avsnitt";
+            this.Avsnitt.Width = 106;
             // 
-            // label1
+            // Namn
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(107, 43);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 17);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Dybecks knapp";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.Namn.Text = "Namn";
+            this.Namn.Width = 156;
+            // 
+            // Frekvens
+            // 
+            this.Frekvens.Text = "Frekvens";
+            this.Frekvens.Width = 156;
+            // 
+            // Kategori
+            // 
+            this.Kategori.Text = "Kategori";
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(312, 361);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 1;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(819, 455);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.ClientSize = new System.Drawing.Size(801, 571);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.lvFeed);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListView lvFeed;
+        private System.Windows.Forms.ColumnHeader Avsnitt;
+        private System.Windows.Forms.ColumnHeader Namn;
+        private System.Windows.Forms.ColumnHeader Frekvens;
+        private System.Windows.Forms.ColumnHeader Kategori;
+        private System.Windows.Forms.Button btnAdd;
     }
 }
 
