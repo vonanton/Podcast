@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.lvPodcast = new System.Windows.Forms.ListView();
             this.Avsnitt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Namn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Frekvens = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Kategori = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
-            // listView1
+            // lvPodcast
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvPodcast.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Avsnitt,
             this.Namn,
             this.Frekvens,
             this.Kategori});
-            this.listView1.Location = new System.Drawing.Point(89, 28);
-            this.listView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(629, 287);
-            this.listView1.TabIndex = 0;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.lvPodcast.Location = new System.Drawing.Point(89, 28);
+            this.lvPodcast.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lvPodcast.Name = "lvPodcast";
+            this.lvPodcast.Size = new System.Drawing.Size(658, 315);
+            this.lvPodcast.TabIndex = 0;
+            this.lvPodcast.UseCompatibleStateImageBehavior = false;
+            this.lvPodcast.View = System.Windows.Forms.View.Details;
             // 
             // Avsnitt
             // 
@@ -68,13 +68,14 @@
             // Kategori
             // 
             this.Kategori.Text = "Kategori";
+            this.Kategori.Width = 177;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1138, 587);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.lvPodcast);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -83,7 +84,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView lvPodcast;
         private System.Windows.Forms.ColumnHeader Avsnitt;
         private System.Windows.Forms.ColumnHeader Namn;
         private System.Windows.Forms.ColumnHeader Frekvens;
