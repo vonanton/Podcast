@@ -15,7 +15,24 @@ namespace Podcast.BLL
 
         //public abstract void Add(TextBox category);
 
-        public abstract void Add(ListView listView, TextBox textUrl);
+        
+
+        public virtual void Add(ListView listView, string episodes, string title)
+        {
+            var listViewItem = new ListViewItem(new[] {
+                episodes,
+                title,
+            });
+            listView.Items.Add(listViewItem);
+        }
+
+        public virtual void Add(ListView listView, string category)
+        {
+            var listViewItem = new ListViewItem(new[] {
+                category,
+            });
+            listView.Items.Add(listViewItem);
+        }
 
         public abstract void SaveChanges();
 
