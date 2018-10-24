@@ -9,19 +9,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ServiceModel.Syndication;
 using System.Xml;
+using Podcast.BLL;
 
 namespace Podcast
 {
     public partial class Form1 : Form
     {
-        
+        PodcastFeed pod = new PodcastFeed();
         public Form1()
         {
             InitializeComponent();
-            ReadRssFeed();
+            
         }
 
-        public void ReadRssFeed()
+        /*public void ReadRssFeed()
         {
             string url = "http://www.keithandthegirl.com/rss";
             XmlReader reader = XmlReader.Create(url);
@@ -31,10 +32,12 @@ namespace Podcast
             string Episodes = numberOfItems(url).ToString();
             string Title = feed.Title.Text;
             string Description = feed.Description.Text;
-
             
-            string[] row = { Episodes, Title, Description };
-            var listViewItem = new ListViewItem(row);
+            var listViewItem = new ListViewItem(new[] {
+                Episodes,
+                Title,
+                Description
+            });
             lvPodcast.Items.Add(listViewItem);
         }
 
@@ -44,6 +47,11 @@ namespace Podcast
             {
                 return SyndicationFeed.Load(reader).Items.Count();
             }
+        }*/
+
+        private void btnAddPodcast_Click(object sender, EventArgs e)
+        {
+            pod.Add(lvPodcast, tbUrl);
         }
     }
 }
