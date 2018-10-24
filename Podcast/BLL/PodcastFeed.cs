@@ -24,17 +24,18 @@ namespace Podcast.BLL
             return null;
         }*/
 
-        public override void Add(ListView listView, TextBox url)
+        public void Add(ListView listView, TextBox url)
         {
             readRss.LoadRss(url);
             Episodes = readRss.Episodes;
             Title = readRss.Title;
 
-            var listViewItem = new ListViewItem(new[] {
+            /*var listViewItem = new ListViewItem(new[] {
                 Episodes,
                 Title,
             });
-            listView.Items.Add(listViewItem);
+            listView.Items.Add(listViewItem);*/
+            base.Add(listView, Episodes, Title);
         }
 
         private int numberOfItems(string feedUrl)
