@@ -50,6 +50,7 @@
     <Compile Include="BLL\Category.cs" />
     <Compile Include="BLL\Podcast.cs" />
     <Compile Include="BLL\PodcastFeed.cs" />
+    <Compile Include="DAL\ReadRss.cs" />
     <Compile Include="Interfaces\IProperties.cs" />
     <Compile Include="PL\Form1.cs">
       <SubType>Form</SubType>
@@ -84,8 +85,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAL\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

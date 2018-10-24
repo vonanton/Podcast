@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Podcast.DAL;
+using Podcast.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Syndication;
@@ -9,9 +11,13 @@ using System.Xml;
 
 namespace Podcast.BLL
 {
-    public class PodcastFeed : Podcast
+    public class PodcastFeed : Podcast, IProperties
     {
+        ReadRss readRss = new ReadRss();
 
+        public string Episodes { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
         /*public override ListViewItem ToListViewItem()
         {
 
@@ -20,20 +26,13 @@ namespace Podcast.BLL
 
         public override void Add(ListView listView, TextBox url)
         {
-            string newUrl = url.Text;
-            //string url = "http://www.keithandthegirl.com/rss";
-            XmlReader reader = XmlReader.Create(newUrl);
-            SyndicationFeed feed = SyndicationFeed.Load(reader);
-            reader.Close();
-
-            Episodes = numberOfItems(newUrl).ToString();
-            Title = feed.Title.Text;
-            Description = feed.Description.Text;
+            readRss.LoadRss(url);
+            Episodes = readRss.Episodes;
+            Title = readRss.Title;
 
             var listViewItem = new ListViewItem(new[] {
                 Episodes,
                 Title,
-                Description
             });
             listView.Items.Add(listViewItem);
         }
