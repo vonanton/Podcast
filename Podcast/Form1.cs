@@ -35,9 +35,10 @@ namespace Podcast
             {
                 string subject = item.Title.Text;
                 string a = item.Summary.Text;
-                var listViewItem = new ListViewItem(subject, a);
-                lvFeed.Items.Add(listViewItem);
-                lvFeed.Items.Add(a);
+                string b = item.Categories.ToString();
+                var listViewItem = new ListViewItem(b);
+                lvFeed.Items.Add(b);
+                
             }
 
         }
@@ -46,6 +47,11 @@ namespace Podcast
         {
             AddItem();
             
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
