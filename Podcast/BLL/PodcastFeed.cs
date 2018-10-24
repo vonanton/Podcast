@@ -17,7 +17,6 @@ namespace Podcast.BLL
 
         public string Episodes { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
         /*public override ListViewItem ToListViewItem()
         {
 
@@ -29,12 +28,7 @@ namespace Podcast.BLL
             readRss.LoadRss(url);
             Episodes = readRss.Episodes;
             Title = readRss.Title;
-
-            /*var listViewItem = new ListViewItem(new[] {
-                Episodes,
-                Title,
-            });
-            listView.Items.Add(listViewItem);*/
+            
             base.Add(listView, Episodes, Title);
         }
 

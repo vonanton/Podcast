@@ -14,7 +14,6 @@ namespace Podcast.DAL
     {
         public string Episodes { get; set; }
         public string Title { get; set; }
-        public string Description { get; set; }
 
         public void LoadRss(TextBox url)
         {
@@ -24,9 +23,10 @@ namespace Podcast.DAL
             SyndicationFeed feed = SyndicationFeed.Load(reader);
             reader.Close();
 
+
             Episodes = numberOfItems(newUrl).ToString();
             Title = feed.Title.Text;
-            Description = feed.Description.Text;
+           
         }
 
         private int numberOfItems(string feedUrl)

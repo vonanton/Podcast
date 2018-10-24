@@ -17,19 +17,19 @@ namespace Podcast.BLL
 
         
 
-        public virtual void Add(ListView listView, string Episodes, string Title)
+        public virtual void Add(ListView listView, string episodes, string title)
         {
             var listViewItem = new ListViewItem(new[] {
-                Episodes,
-                Title,
+                episodes,
+                title,
             });
             listView.Items.Add(listViewItem);
         }
 
-        public virtual void Add(ListView listView, string Category)
+        public virtual void Add(ListView listView, string category)
         {
             var listViewItem = new ListViewItem(new[] {
-                Category,
+                category,
             });
             listView.Items.Add(listViewItem);
         }
