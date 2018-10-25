@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
+
 namespace Podcast.DAL
 {
     class ReadRss : IProperties
@@ -17,16 +18,20 @@ namespace Podcast.DAL
 
         public void LoadRss(TextBox url)
         {
+
             string newUrl = url.Text;
             //string url = "http://www.keithandthegirl.com/rss";
             XmlReader reader = XmlReader.Create(newUrl);
             SyndicationFeed feed = SyndicationFeed.Load(reader);
-            reader.Close();
+           reader.Close();
 
 
             Episodes = numberOfItems(newUrl).ToString();
             Title = feed.Title.Text;
-           
+
+
+
+
         }
 
         private int numberOfItems(string feedUrl)
@@ -38,3 +43,13 @@ namespace Podcast.DAL
         }
     }
 }
+
+//string newUrl = url.Text;
+////string url = "http://www.keithandthegirl.com/rss";
+//XmlReader reader = XmlReader.Create(newUrl);
+//SyndicationFeed feed = SyndicationFeed.Load(reader);
+//reader.Close();
+
+
+//            Episodes = numberOfItems(newUrl).ToString();
+//Title = feed.Title.Text;
