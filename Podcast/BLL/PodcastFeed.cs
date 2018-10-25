@@ -17,28 +17,16 @@ namespace Podcast.BLL
 
         public string Episodes { get; set; }
         public string Title { get; set; }
-        /*public override ListViewItem ToListViewItem()
-        {
 
-            return null;
-        }*/
-
-        public void Add(ListView listView, TextBox url)
+        public async void Add(ListView listView, TextBox url)
         {
-            readRss.LoadRss(url);
+            await readRss.LoadRss(url);
             Episodes = readRss.Episodes;
             Title = readRss.Title;
             
             base.Add(listView, Episodes, Title);
         }
 
-        private int numberOfItems(string feedUrl)
-        {
-            using (XmlReader reader = XmlReader.Create(feedUrl))
-            {
-                return SyndicationFeed.Load(reader).Items.Count();
-            }
-        }
 
         public override void SaveChanges()
         {
