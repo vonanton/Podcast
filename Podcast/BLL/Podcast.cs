@@ -11,12 +11,6 @@ namespace Podcast.BLL
     public abstract class Podcast
     {
 
-        //public abstract ListViewItem ToListViewItem();
-
-        //public abstract void Add(TextBox category);
-
-        
-
         public virtual void Add(ListView listView, string episodes, string title)
         {
             var listViewItem = new ListViewItem(new[] {
