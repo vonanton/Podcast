@@ -13,26 +13,33 @@ namespace Podcast.DAL
 {
     class ReadRss : IProperties
     {
-        public string Episodes { get; set; }
+        public List<string> Episodes { get; set; }
+        public string EpisodeCount { get; set; }
         public string Title { get; set; }
+
+        public ReadRss()
+        {
+            Episodes = new List<string>();
+        }
 
         public async Task LoadRss(TextBox url)
         {
             await Task.Run(() =>
             {
                 string rssUrl = url.Text;
-                //HttpClient client = new HttpClient();
-                //var rsstring = await client.GetStringAsync(rssUrl);
                 //string url = "http://www.keithandthegirl.com/rss";
 
                 XmlReader reader = XmlReader.Create(rssUrl);
                 SyndicationFeed feed = SyndicationFeed.Load(reader);
                 reader.Close();
 
-                Episodes = numberOfItems(rssUrl).ToString();
+                EpisodeCount = numberOfItems(rssUrl).ToString();
                 Title = feed.Title.Text;
+                foreach(SyndicationItem episodes in feed.Items)
+                {
+                    Episodes.Add(episodes.Title.Text);
+                }
             });
-
         }
 
 
@@ -42,7 +49,6 @@ namespace Podcast.DAL
             { 
                 return SyndicationFeed.Load(reader).Items.Count();
             }
-
         }
     }
 }

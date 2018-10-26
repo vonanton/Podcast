@@ -35,5 +35,32 @@ namespace Podcast
             category.Add(lvCategory, tbCategories);
             cbChangeCategory.Items.Add(tbCategories.Text);
         }
+
+        private void btnDeleteCategory_Click(object sender, EventArgs e)
+        {
+            category.Remove(lvCategory);
+        }
+
+        private void btnDeletePodcast_Click(object sender, EventArgs e)
+        {
+            podcastFeed.Remove(lvPodcast);
+        }
+
+        private void lvPodcast_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+
+            
+        }
+
+        private void lvPodcast_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lvPodcastEpisodes.Clear();
+            if (lvPodcast.SelectedItems.Count > 0)
+            {
+                podcastFeed.ListEpisodes(lvPodcastEpisodes, lvPodcast);
+            }
+                
+
+        }
     }
 }

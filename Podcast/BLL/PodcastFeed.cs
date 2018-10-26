@@ -15,27 +15,42 @@ namespace Podcast.BLL
     {
         ReadRss readRss = new ReadRss();
 
-        public string Episodes { get; set; }
+        public List<string> Episodes { get; set; }
+        public string EpisodeCount { get; set; }
         public string Title { get; set; }
 
         public async void Add(ListView listView, TextBox url)
         {
             await readRss.LoadRss(url);
-            Episodes = readRss.Episodes;
+            EpisodeCount = readRss.EpisodeCount;
             Title = readRss.Title;
             
-            base.Add(listView, Episodes, Title);
+            base.Add(listView, EpisodeCount, Title);
         }
 
+        public void ListEpisodes(ListView lvPodcastEpisodes, ListView lvPodcast)
+        {
+
+            Episodes = readRss.Episodes;
+
+            foreach (var episodes in Episodes)
+            {
+                if (lvPodcast.SelectedItems.Count > 0)
+                {
+                    textBox1.Text = Episodes[lvPodcast.SelectedItems[0].Index];
+                    base.Add(lvPodcastEpisodes, episodes);
+                }                   
+            }   
+        }
 
         public override void SaveChanges()
         {
 
         }
 
-        public override void Remove()
+        public override void Remove(ListView listView)
         {
-
+            base.Remove(listView);
         }
     }
 }

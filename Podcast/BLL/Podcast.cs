@@ -11,25 +11,28 @@ namespace Podcast.BLL
     public abstract class Podcast
     {
 
-        public virtual void Add(ListView listView, string episodes, string title)
+        public virtual void Add(ListView listView, string episodeCount, string title)
         {
             var listViewItem = new ListViewItem(new[] {
-                episodes,
+                episodeCount,
                 title,
             });
             listView.Items.Add(listViewItem);
         }
 
-        public virtual void Add(ListView listView, string category)
+        public virtual void Add(ListView listView, string item)
         {
             var listViewItem = new ListViewItem(new[] {
-                category,
+                item,
             });
             listView.Items.Add(listViewItem);
         }
 
         public abstract void SaveChanges();
 
-        public abstract void Remove();
+        public virtual void Remove(ListView listView)
+        {
+            listView.SelectedItems[0].Remove();
+        }
     }
 }

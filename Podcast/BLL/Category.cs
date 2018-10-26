@@ -20,9 +20,9 @@ namespace Podcast.BLL
 
         }
 
-        public override void Remove()
+        public override void Remove(ListView listView)
         {
-
+            base.Remove(listView);
         }
 
     }
