@@ -11,11 +11,13 @@ namespace Podcast.BLL
     public abstract class Podcast
     {
 
-        public virtual void Add(ListView listView, string episodeCount, string title)
+        public virtual void Add(ListView listView, string episodeCount, string podTitle, string frekvens, string category)
         {
             var listViewItem = new ListViewItem(new[] {
                 episodeCount,
-                title,
+                podTitle,
+                frekvens,
+                category
             });
             listView.Items.Add(listViewItem);
         }
@@ -28,7 +30,16 @@ namespace Podcast.BLL
             listView.Items.Add(listViewItem);
         }
 
-        public abstract void SaveChanges();
+        public virtual void SaveChanges(ListView lvCategory, ListView lvPodcast, TextBox textBox)
+        {
+            lvCategory.SelectedItems[0].Text = textBox.Text;
+        }
+
+        public virtual void SaveChanges(ListView listView, ComboBox frequence, ComboBox category)
+        {
+            listView.SelectedItems[0].SubItems[2].Text = frequence.GetItemText(frequence.SelectedItem);
+            listView.SelectedItems[0].SubItems[3].Text = category.GetItemText(category.SelectedItem);
+        }
 
         public virtual void Remove(ListView listView)
         {

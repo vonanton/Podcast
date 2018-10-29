@@ -13,43 +13,64 @@ namespace Podcast.BLL
 {
     public class PodcastFeed : Podcast, IProperties
     {
-        ReadRss readRss = new ReadRss();
+        public ReadRss readRss = new ReadRss();
 
-        public List<string> Episodes { get; set; }
+        public Dictionary<string, List<string>> Episodes { get; set; }
+        public Dictionary<string, List<string>> EpisodeSummary { get; set; }
         public string EpisodeCount { get; set; }
-        public string Title { get; set; }
+        public string PodTitle { get; set; }
+        
 
-        public async void Add(ListView listView, TextBox url)
+        public async void Add(ListView listView, string url, string frekvens, string category)
         {
             await readRss.LoadRss(url);
             EpisodeCount = readRss.EpisodeCount;
-            Title = readRss.Title;
-            
-            base.Add(listView, EpisodeCount, Title);
+            PodTitle = readRss.PodTitle;
+
+            base.Add(listView, EpisodeCount, PodTitle, frekvens, category);
         }
 
         public void ListEpisodes(ListView lvPodcastEpisodes, ListView lvPodcast)
         {
-
+            
             Episodes = readRss.Episodes;
-
+            string podTitle = lvPodcast.SelectedItems[0].SubItems[1].Text;
             foreach (var episodes in Episodes)
             {
-                if (lvPodcast.SelectedItems.Count > 0)
+                    foreach (var value in episodes.Value)
+                    {
+                        if (podTitle == episodes.Key)
+                        {
+                            base.Add(lvPodcastEpisodes, value);
+                        }
+                    } 
+            }
+        }
+        public void ListEpisodeSummary(ListView lvPodcastEpisode, TextBox summaryText)
+        {
+            
+            EpisodeSummary = readRss.EpisodeSummary;
+            string episodeTitle = lvPodcastEpisode.SelectedItems[0].Text;
+            foreach (var summary in EpisodeSummary)
+            {
+                foreach (var summaryValue in summary.Value)
                 {
-                    textBox1.Text = Episodes[lvPodcast.SelectedItems[0].Index];
-                    base.Add(lvPodcastEpisodes, episodes);
-                }                   
-            }   
+                    if (episodeTitle == summary.Key)
+                    {
+                        summaryText.Text = summaryValue;
+                    }
+                }
+            }
         }
 
-        public override void SaveChanges()
+        public override void SaveChanges(ListView lvPodcast, ComboBox frequence, ComboBox changeCategory)
         {
-
+            base.SaveChanges(lvPodcast, frequence, changeCategory);
         }
 
         public override void Remove(ListView listView)
         {
+            Episodes.Remove(listView.SelectedItems[0].SubItems[1].Text);
             base.Remove(listView);
         }
     }

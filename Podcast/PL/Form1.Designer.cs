@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lvPodcast = new System.Windows.Forms.ListView();
             this.Avsnitt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Namn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -51,6 +52,8 @@
             this.lblPodcast = new System.Windows.Forms.Label();
             this.lvPodcastEpisodes = new System.Windows.Forms.ListView();
             this.lblPodcastEpisode = new System.Windows.Forms.Label();
+            this.tbEpisodeSummary = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // lvPodcast
@@ -64,12 +67,12 @@
             this.lvPodcast.FullRowSelect = true;
             this.lvPodcast.Location = new System.Drawing.Point(13, 14);
             this.lvPodcast.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lvPodcast.MultiSelect = false;
             this.lvPodcast.Name = "lvPodcast";
             this.lvPodcast.Size = new System.Drawing.Size(751, 294);
             this.lvPodcast.TabIndex = 0;
             this.lvPodcast.UseCompatibleStateImageBehavior = false;
             this.lvPodcast.View = System.Windows.Forms.View.Details;
-            this.lvPodcast.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.lvPodcast_ItemSelectionChanged);
             this.lvPodcast.SelectedIndexChanged += new System.EventHandler(this.lvPodcast_SelectedIndexChanged);
             // 
             // Avsnitt
@@ -112,6 +115,10 @@
             // cbUpdate
             // 
             this.cbUpdate.FormattingEnabled = true;
+            this.cbUpdate.Items.AddRange(new object[] {
+            "5 Minutes",
+            "10 Minutes",
+            "15 Minutes"});
             this.cbUpdate.Location = new System.Drawing.Point(147, 336);
             this.cbUpdate.Name = "cbUpdate";
             this.cbUpdate.Size = new System.Drawing.Size(152, 28);
@@ -160,6 +167,7 @@
             this.btnSavePodChanges.TabIndex = 8;
             this.btnSavePodChanges.Text = "Spara";
             this.btnSavePodChanges.UseVisualStyleBackColor = true;
+            this.btnSavePodChanges.Click += new System.EventHandler(this.btnSavePodChanges_Click);
             // 
             // btnDeletePodcast
             // 
@@ -213,6 +221,7 @@
             this.btnSaveCategoryChanges.TabIndex = 14;
             this.btnSaveCategoryChanges.Text = "Spara";
             this.btnSaveCategoryChanges.UseVisualStyleBackColor = true;
+            this.btnSaveCategoryChanges.Click += new System.EventHandler(this.btnSaveCategoryChanges_Click);
             // 
             // btnDeleteCategory
             // 
@@ -227,7 +236,7 @@
             // lblPodcast
             // 
             this.lblPodcast.AutoSize = true;
-            this.lblPodcast.Location = new System.Drawing.Point(12, 460);
+            this.lblPodcast.Location = new System.Drawing.Point(8, 472);
             this.lblPodcast.Name = "lblPodcast";
             this.lblPodcast.Size = new System.Drawing.Size(301, 20);
             this.lblPodcast.TabIndex = 16;
@@ -242,15 +251,30 @@
             this.lvPodcastEpisodes.TabIndex = 17;
             this.lvPodcastEpisodes.UseCompatibleStateImageBehavior = false;
             this.lvPodcastEpisodes.View = System.Windows.Forms.View.List;
+            this.lvPodcastEpisodes.SelectedIndexChanged += new System.EventHandler(this.lvPodcastEpisodes_SelectedIndexChanged);
             // 
             // lblPodcastEpisode
             // 
             this.lblPodcastEpisode.AutoSize = true;
-            this.lblPodcastEpisode.Location = new System.Drawing.Point(894, 369);
+            this.lblPodcastEpisode.Location = new System.Drawing.Point(809, 382);
             this.lblPodcastEpisode.Name = "lblPodcastEpisode";
             this.lblPodcastEpisode.Size = new System.Drawing.Size(343, 20);
             this.lblPodcastEpisode.TabIndex = 18;
             this.lblPodcastEpisode.Text = "Label för att visa vilket podavsnitt man markerat";
+            // 
+            // tbEpisodeSummary
+            // 
+            this.tbEpisodeSummary.BackColor = System.Drawing.Color.Honeydew;
+            this.tbEpisodeSummary.Location = new System.Drawing.Point(813, 405);
+            this.tbEpisodeSummary.Multiline = true;
+            this.tbEpisodeSummary.Name = "tbEpisodeSummary";
+            this.tbEpisodeSummary.ReadOnly = true;
+            this.tbEpisodeSummary.Size = new System.Drawing.Size(501, 235);
+            this.tbEpisodeSummary.TabIndex = 20;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
@@ -258,6 +282,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(1326, 651);
+            this.Controls.Add(this.tbEpisodeSummary);
             this.Controls.Add(this.lblPodcastEpisode);
             this.Controls.Add(this.lvPodcastEpisodes);
             this.Controls.Add(this.lblPodcast);
@@ -308,6 +333,8 @@
         private System.Windows.Forms.ListView lvPodcastEpisodes;
         private System.Windows.Forms.Label lblPodcastEpisode;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.TextBox tbEpisodeSummary;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

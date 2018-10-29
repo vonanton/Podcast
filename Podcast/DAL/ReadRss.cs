@@ -11,37 +11,64 @@ using System.Xml;
 
 namespace Podcast.DAL
 {
-    class ReadRss : IProperties
+    public class ReadRss : IProperties
     {
-        public List<string> Episodes { get; set; }
+
+        public Dictionary<string, List<string>> Episodes { get; set; }
+        public Dictionary<string, List<string>> EpisodeSummary { get; set; }
         public string EpisodeCount { get; set; }
-        public string Title { get; set; }
+        public string PodTitle { get; set; }
 
         public ReadRss()
         {
-            Episodes = new List<string>();
+            Episodes = new Dictionary<string, List<string>>();
+            EpisodeSummary = new Dictionary<string, List<string>>();
         }
 
-        public async Task LoadRss(TextBox url)
+        public async Task LoadRss(string rssUrl)
         {
             await Task.Run(() =>
             {
-                string rssUrl = url.Text;
-                //string url = "http://www.keithandthegirl.com/rss";
+                
+                //https://cdn.radioplay.se/data/rss/498.xml
+                //https://cdn.radioplay.se/data/rss/490.xml
+                //https://cdn.radioplay.se/data/rss/503.xml
 
                 XmlReader reader = XmlReader.Create(rssUrl);
                 SyndicationFeed feed = SyndicationFeed.Load(reader);
                 reader.Close();
 
                 EpisodeCount = numberOfItems(rssUrl).ToString();
-                Title = feed.Title.Text;
-                foreach(SyndicationItem episodes in feed.Items)
+                PodTitle = feed.Title.Text;
+               
+                foreach (SyndicationItem episodes in feed.Items)
                 {
-                    Episodes.Add(episodes.Title.Text);
+                    string EpisodeTitle = episodes.Title.Text;
+                    
+                    if(!EpisodeSummary.ContainsKey(EpisodeTitle))
+                    {
+                        EpisodeSummary.Add(EpisodeTitle, new List<string>());
+                        //EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
+                    }
+                    if (!Episodes.ContainsKey(PodTitle))
+                    {
+                        Episodes.Add(PodTitle, new List<string>());
+                        //Episodes[PodTitle].Add(EpisodeTitle);
+                    }
+                    else
+                    {
+                        foreach (var values in Episodes.Values)
+                        {
+                            if(!values.Contains(EpisodeTitle))
+                            {
+                                Episodes[PodTitle].Add(EpisodeTitle);
+                                EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
+                            }
+                        }        
+                    }
                 }
             });
         }
-
 
         private int numberOfItems(string feedUrl)
         {

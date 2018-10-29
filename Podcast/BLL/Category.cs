@@ -9,21 +9,28 @@ namespace Podcast.BLL
 {
     class Category : Podcast
     {
+        public List<string> ListOfCategorys = new List<string>();
+
         public void Add(ListView listView, TextBox categoryText)
         {
             string Category = categoryText.Text;
+            ListOfCategorys.Add(Category);
             base.Add(listView, Category);
         }
 
-        public override void SaveChanges()
+        public override void SaveChanges(ListView lvCategory, ListView lvPodcast, TextBox categoryText)
         {
-
+            string newCategory = categoryText.Text;
+            
+            ListOfCategorys.Remove(lvCategory.SelectedItems[0].Text);
+            ListOfCategorys.Add(newCategory);
+            base.SaveChanges(lvCategory, lvPodcast, categoryText);
         }
 
         public override void Remove(ListView listView)
         {
+            ListOfCategorys.Remove(listView.SelectedItems[0].Text);
             base.Remove(listView);
         }
-
     }
 }
