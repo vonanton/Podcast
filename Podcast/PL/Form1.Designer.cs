@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lvPodcast = new System.Windows.Forms.ListView();
             this.Avsnitt = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Namn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -49,8 +50,10 @@
             this.btnSaveCategoryChanges = new System.Windows.Forms.Button();
             this.btnDeleteCategory = new System.Windows.Forms.Button();
             this.lblPodcast = new System.Windows.Forms.Label();
-            this.lvlPodcastEpisodes = new System.Windows.Forms.ListView();
+            this.lvPodcastEpisodes = new System.Windows.Forms.ListView();
             this.lblPodcastEpisode = new System.Windows.Forms.Label();
+            this.tbEpisodeSummary = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // lvPodcast
@@ -62,12 +65,15 @@
             this.Frekvens,
             this.Kategori});
             this.lvPodcast.FullRowSelect = true;
-            this.lvPodcast.Location = new System.Drawing.Point(9, 9);
+            this.lvPodcast.Location = new System.Drawing.Point(13, 14);
+            this.lvPodcast.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.lvPodcast.MultiSelect = false;
             this.lvPodcast.Name = "lvPodcast";
             this.lvPodcast.Size = new System.Drawing.Size(502, 192);
             this.lvPodcast.TabIndex = 0;
             this.lvPodcast.UseCompatibleStateImageBehavior = false;
             this.lvPodcast.View = System.Windows.Forms.View.Details;
+            this.lvPodcast.SelectedIndexChanged += new System.EventHandler(this.lvPodcast_SelectedIndexChanged);
             // 
             // Avsnitt
             // 
@@ -111,8 +117,11 @@
             // cbUpdate
             // 
             this.cbUpdate.FormattingEnabled = true;
-            this.cbUpdate.Location = new System.Drawing.Point(98, 218);
-            this.cbUpdate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbUpdate.Items.AddRange(new object[] {
+            "5 Minutes",
+            "10 Minutes",
+            "15 Minutes"});
+            this.cbUpdate.Location = new System.Drawing.Point(147, 336);
             this.cbUpdate.Name = "cbUpdate";
             this.cbUpdate.Size = new System.Drawing.Size(103, 21);
             this.cbUpdate.TabIndex = 3;
@@ -165,6 +174,7 @@
             this.btnSavePodChanges.TabIndex = 8;
             this.btnSavePodChanges.Text = "Spara";
             this.btnSavePodChanges.UseVisualStyleBackColor = true;
+            this.btnSavePodChanges.Click += new System.EventHandler(this.btnSavePodChanges_Click);
             // 
             // btnDeletePodcast
             // 
@@ -175,6 +185,7 @@
             this.btnDeletePodcast.TabIndex = 9;
             this.btnDeletePodcast.Text = "Ta Bort";
             this.btnDeletePodcast.UseVisualStyleBackColor = true;
+            this.btnDeletePodcast.Click += new System.EventHandler(this.btnDeletePodcast_Click);
             // 
             // lvCategory
             // 
@@ -222,6 +233,7 @@
             this.btnSaveCategoryChanges.TabIndex = 14;
             this.btnSaveCategoryChanges.Text = "Spara";
             this.btnSaveCategoryChanges.UseVisualStyleBackColor = true;
+            this.btnSaveCategoryChanges.Click += new System.EventHandler(this.btnSaveCategoryChanges_Click);
             // 
             // btnDeleteCategory
             // 
@@ -232,46 +244,60 @@
             this.btnDeleteCategory.TabIndex = 15;
             this.btnDeleteCategory.Text = "Ta Bort";
             this.btnDeleteCategory.UseVisualStyleBackColor = true;
+            this.btnDeleteCategory.Click += new System.EventHandler(this.btnDeleteCategory_Click);
             // 
             // lblPodcast
             // 
             this.lblPodcast.AutoSize = true;
-            this.lblPodcast.Location = new System.Drawing.Point(8, 299);
-            this.lblPodcast.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPodcast.Location = new System.Drawing.Point(8, 472);
             this.lblPodcast.Name = "lblPodcast";
             this.lblPodcast.Size = new System.Drawing.Size(204, 13);
             this.lblPodcast.TabIndex = 16;
             this.lblPodcast.Text = "Label för att visa vilken pod man markerat";
             // 
-            // lvlPodcastEpisodes
+            // lvPodcastEpisodes
             // 
-            this.lvlPodcastEpisodes.BackColor = System.Drawing.Color.Honeydew;
-            this.lvlPodcastEpisodes.Location = new System.Drawing.Point(8, 322);
-            this.lvlPodcastEpisodes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.lvlPodcastEpisodes.Name = "lvlPodcastEpisodes";
-            this.lvlPodcastEpisodes.Size = new System.Drawing.Size(503, 96);
-            this.lvlPodcastEpisodes.TabIndex = 17;
-            this.lvlPodcastEpisodes.UseCompatibleStateImageBehavior = false;
-            this.lvlPodcastEpisodes.View = System.Windows.Forms.View.Details;
+            this.lvPodcastEpisodes.BackColor = System.Drawing.Color.Honeydew;
+            this.lvPodcastEpisodes.Location = new System.Drawing.Point(12, 495);
+            this.lvPodcastEpisodes.Name = "lvPodcastEpisodes";
+            this.lvPodcastEpisodes.Size = new System.Drawing.Size(752, 145);
+            this.lvPodcastEpisodes.TabIndex = 17;
+            this.lvPodcastEpisodes.UseCompatibleStateImageBehavior = false;
+            this.lvPodcastEpisodes.View = System.Windows.Forms.View.List;
+            this.lvPodcastEpisodes.SelectedIndexChanged += new System.EventHandler(this.lvPodcastEpisodes_SelectedIndexChanged);
             // 
             // lblPodcastEpisode
             // 
             this.lblPodcastEpisode.AutoSize = true;
-            this.lblPodcastEpisode.Location = new System.Drawing.Point(596, 240);
-            this.lblPodcastEpisode.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPodcastEpisode.Location = new System.Drawing.Point(809, 382);
             this.lblPodcastEpisode.Name = "lblPodcastEpisode";
             this.lblPodcastEpisode.Size = new System.Drawing.Size(232, 13);
             this.lblPodcastEpisode.TabIndex = 18;
             this.lblPodcastEpisode.Text = "Label för att visa vilket podavsnitt man markerat";
+            // 
+            // tbEpisodeSummary
+            // 
+            this.tbEpisodeSummary.BackColor = System.Drawing.Color.Honeydew;
+            this.tbEpisodeSummary.Location = new System.Drawing.Point(813, 405);
+            this.tbEpisodeSummary.Multiline = true;
+            this.tbEpisodeSummary.Name = "tbEpisodeSummary";
+            this.tbEpisodeSummary.ReadOnly = true;
+            this.tbEpisodeSummary.Size = new System.Drawing.Size(501, 235);
+            this.tbEpisodeSummary.TabIndex = 20;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(884, 423);
+            this.ClientSize = new System.Drawing.Size(1326, 651);
+            this.Controls.Add(this.tbEpisodeSummary);
             this.Controls.Add(this.lblPodcastEpisode);
-            this.Controls.Add(this.lvlPodcastEpisodes);
+            this.Controls.Add(this.lvPodcastEpisodes);
             this.Controls.Add(this.lblPodcast);
             this.Controls.Add(this.btnDeleteCategory);
             this.Controls.Add(this.btnSaveCategoryChanges);
@@ -318,9 +344,11 @@
         private System.Windows.Forms.Button btnSaveCategoryChanges;
         private System.Windows.Forms.Button btnDeleteCategory;
         private System.Windows.Forms.Label lblPodcast;
-        private System.Windows.Forms.ListView lvlPodcastEpisodes;
+        private System.Windows.Forms.ListView lvPodcastEpisodes;
         private System.Windows.Forms.Label lblPodcastEpisode;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.TextBox tbEpisodeSummary;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

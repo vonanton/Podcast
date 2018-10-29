@@ -8,36 +8,70 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using System.IO;
 
 namespace Podcast.BLL
 {
-    
     public class PodcastFeed : Podcast, IProperties
     {
-        ReadRss readRss = new ReadRss();
-        
-        public string Episodes { get; set; }
-        public string Title { get; set; }
+        public ReadRss readRss = new ReadRss();
 
-        public async void Add(ListView listView, TextBox url)
+        public Dictionary<string, List<string>> Episodes { get; set; }
+        public Dictionary<string, List<string>> EpisodeSummary { get; set; }
+        public string EpisodeCount { get; set; }
+        public string PodTitle { get; set; }
+        
+
+        public async void Add(ListView listView, string url, string frekvens, string category)
         {
             await readRss.LoadRss(url);
+            EpisodeCount = readRss.EpisodeCount;
+            PodTitle = readRss.PodTitle;
+
+            base.Add(listView, EpisodeCount, PodTitle, frekvens, category);
+        }
+
+        public void ListEpisodes(ListView lvPodcastEpisodes, ListView lvPodcast)
+        {
+            
             Episodes = readRss.Episodes;
-            Title = readRss.Title;
-            
-            base.Add(listView, Episodes, Title);
-            
+            string podTitle = lvPodcast.SelectedItems[0].SubItems[1].Text;
+            foreach (var episodes in Episodes)
+            {
+                    foreach (var value in episodes.Value)
+                    {
+                        if (podTitle == episodes.Key)
+                        {
+                            base.Add(lvPodcastEpisodes, value);
+                        }
+                    } 
+            }
         }
-       
-        public override void SaveChanges()
+        public void ListEpisodeSummary(ListView lvPodcastEpisode, TextBox summaryText)
         {
-
+            
+            EpisodeSummary = readRss.EpisodeSummary;
+            string episodeTitle = lvPodcastEpisode.SelectedItems[0].Text;
+            foreach (var summary in EpisodeSummary)
+            {
+                foreach (var summaryValue in summary.Value)
+                {
+                    if (episodeTitle == summary.Key)
+                    {
+                        summaryText.Text = summaryValue;
+                    }
+                }
+            }
         }
 
-        public override void Remove()
+        public override void SaveChanges(ListView lvPodcast, ComboBox frequence, ComboBox changeCategory)
         {
+            base.SaveChanges(lvPodcast, frequence, changeCategory);
+        }
 
+        public override void Remove(ListView listView)
+        {
+            Episodes.Remove(listView.SelectedItems[0].SubItems[1].Text);
+            base.Remove(listView);
         }
     }
 }
