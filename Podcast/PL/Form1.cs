@@ -29,12 +29,13 @@ namespace Podcast
             InitializeComponent();
             Urls = new List<string>();
             Timer = new Dictionary<string, List<Timer>>();
-        }
             ReadFile();
             ReadXml();
-
-
         }
+            
+
+
+        
         private void ReadFile(){
             try
             {
@@ -98,6 +99,11 @@ namespace Podcast
             PodcastFeed.Add(lvPodcast, newUrl, frequence, category);
             
             setTimer();
+
+            
+            var xml = SaveToXml(newUrl);
+            File.WriteAllText("blah.xml", xml);
+            PodcastFeed.Add(lvPodcast, newUrl);
         }
 
         private void setTimer()
@@ -111,15 +117,8 @@ namespace Podcast
             Timer.Add(tbUrl.Text, new List<Timer>());
             Timer[tbUrl.Text].Add(timers);
             timers.Start();
-
-        private void btnAddPodcast_Click(object sender, EventArgs e)
-        {
-            string url = tbUrl.Text;
-            var xml = SaveToXml(url);
-            File.WriteAllText("blah.xml", xml);
-            podcastFeed.Add(lvPodcast, tbUrl);
-            
         }
+        
 
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
