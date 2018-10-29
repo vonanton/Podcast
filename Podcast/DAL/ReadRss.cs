@@ -11,15 +11,18 @@ using System.Xml;
 
 namespace Podcast.DAL
 {
+    [Serializable]
     class ReadRss : IProperties
     {
         public string Episodes { get; set; }
         public string Title { get; set; }
-
+        
+        
         public async Task LoadRss(TextBox url)
         {
             await Task.Run(() =>
             {
+                 
                 string rssUrl = url.Text;
                 //HttpClient client = new HttpClient();
                 //var rsstring = await client.GetStringAsync(rssUrl);
@@ -31,6 +34,7 @@ namespace Podcast.DAL
 
                 Episodes = numberOfItems(rssUrl).ToString();
                 Title = feed.Title.Text;
+
             });
 
         }

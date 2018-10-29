@@ -8,13 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.IO;
 
 namespace Podcast.BLL
 {
+    [Serializable]
     public class PodcastFeed : Podcast, IProperties
     {
         ReadRss readRss = new ReadRss();
-
+        
         public string Episodes { get; set; }
         public string Title { get; set; }
 
@@ -25,8 +27,8 @@ namespace Podcast.BLL
             Title = readRss.Title;
             
             base.Add(listView, Episodes, Title);
+            
         }
-
 
         public override void SaveChanges()
         {
