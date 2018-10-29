@@ -22,6 +22,7 @@ namespace Podcast.BLL
                 title,
             });
             listView.Items.Add(listViewItem);
+           
 
         }
 
@@ -31,13 +32,13 @@ namespace Podcast.BLL
                 category,
             });
             listView.Items.Add(listViewItem);
-            SaveFile(listView);
+            SaveCategory(listView);
 
             
         }
-        public void SaveFile(ListView listView)
+        public void SaveCategory(ListView listView)
         {
-            const string sPath = "savers.txt";
+            const string sPath = "nyfil.xml";
 
             TextWriter SaveFile = new StreamWriter(sPath);
 
@@ -49,7 +50,24 @@ namespace Podcast.BLL
 
             SaveFile.Close();
         }
+        //public void SaveRSS(ListView listView)
+        //{
+        //    const string path = "RSS.xml";
 
+        //    XmlSerializer SaveFile = new XmlSerializer(typeof(ListViewItem));
+
+        //    using (FileStream stream = File.OpenWrite(path))
+        //    {
+        //        SaveFile.Serialize(stream, listView.Items);
+        //    }
+        //    //foreach (ListViewItem item in listView.Items)
+        //    //{
+        //    //    SaveFile.WriteLine(item);
+        //    //}
+
+
+        //    //SaveFile.Close();
+        //}
 
         public abstract void SaveChanges();
 

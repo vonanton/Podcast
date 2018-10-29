@@ -11,6 +11,7 @@ using System.ServiceModel.Syndication;
 using System.Xml;
 using Podcast.BLL;
 using System.IO;
+using System.Net;
 
 namespace Podcast
 {
@@ -25,12 +26,14 @@ namespace Podcast
         {
             InitializeComponent();
             ReadFile();
+            ReadXml();
+
 
         }
         private void ReadFile(){
             try
             {
-                string minText = "savers.txt";
+                string minText = "nyfil.xml";
                 using (var ReadFile = new StreamReader(minText))
                 {
                     string line;
@@ -49,10 +52,36 @@ namespace Podcast
                 MessageBox.Show("Något fel");
             }
         }
+        private void ReadXml()
+        {
+            try
+            {
+                string minText = "blah.xml";
+                using (var ReadFile = new StreamReader(minText))
+                {
+                    string line;
+                    while ((line = ReadFile.ReadLine()) != null)
+                    {
+                        foreach (string text in line.Split())
+                        {
+                            lvPodcast.Items.Add(text);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Filen kunde inte hittas!");
+                MessageBox.Show("Något fel");
+            }
+        }
 
 
         private void btnAddPodcast_Click(object sender, EventArgs e)
         {
+            string url = tbUrl.Text;
+            var xml = SaveToXml(url);
+            File.WriteAllText("blah.xml", xml);
             podcastFeed.Add(lvPodcast, tbUrl);
             
         }
@@ -62,5 +91,17 @@ namespace Podcast
             category.Add(lvCategory, tbCategories);
             cbChangeCategory.Items.Add(tbCategories.Text);
         }
+        public static string SaveToXml(string url)
+        {
+
+            string text;
+            using (var client = new WebClient())
+            {
+                text = client.DownloadString(url);
+            }
+            return text;
+        }
+
     }
+    
 }

@@ -12,7 +12,7 @@ using System.IO;
 
 namespace Podcast.BLL
 {
-    [Serializable]
+    
     public class PodcastFeed : Podcast, IProperties
     {
         ReadRss readRss = new ReadRss();
@@ -29,7 +29,7 @@ namespace Podcast.BLL
             base.Add(listView, Episodes, Title);
             
         }
-
+       
         public override void SaveChanges()
         {
 
