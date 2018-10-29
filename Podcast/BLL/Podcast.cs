@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace Podcast.BLL
 {
-    [Serializable]
+    
     public abstract class Podcast
     {
         
