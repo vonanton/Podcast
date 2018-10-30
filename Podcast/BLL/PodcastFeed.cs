@@ -2,6 +2,7 @@
 using Podcast.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Text;
@@ -28,6 +29,7 @@ namespace Podcast.BLL
             PodTitle = readRss.PodTitle;
 
             base.Add(listView, EpisodeCount, PodTitle, frekvens, category);
+            SavePodcast(listView, EpisodeCount, PodTitle);
         }
 
         public void ListEpisodes(ListView lvPodcastEpisodes, ListView lvPodcast)
@@ -61,6 +63,21 @@ namespace Podcast.BLL
                     }
                 }
             }
+        }
+
+        public void SavePodcast(ListView listView, String EpisodeCount, String PodTitle)
+        {
+            const string sPath = "nyfilPod.xml";
+
+            TextWriter SaveFile = new StreamWriter(sPath);
+
+            foreach (ListViewItem item in listView.Items)
+            {
+                SaveFile.WriteLine(EpisodeCount, PodTitle);
+            }
+
+
+            SaveFile.Close();
         }
 
         public override void SaveChanges(ListView lvPodcast, ComboBox frequence, ComboBox changeCategory)
