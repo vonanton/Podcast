@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.ServiceModel.Syndication;
 using System.Xml;
 using Podcast.BLL;
+using System.IO;
+using System.Net;
 using Podcast.DAL;
 
 namespace Podcast
@@ -27,8 +29,59 @@ namespace Podcast
             InitializeComponent();
             Urls = new List<string>();
             Timer = new Dictionary<string, List<Timer>>();
+            ReadFile();
+            //ReadXml();
         }
+            
 
+
+        
+        private void ReadFile(){
+            try
+            {
+                string minTex = "nyfil.xml";
+                using (var ReadFile = new StreamReader(minTex))
+                {
+                    string line;
+                    while ((line = ReadFile.ReadLine()) != null)
+                    {
+                        foreach(string text in line.Split())
+                        {
+                            lvCategory.Items.Add(text);
+                            cbChangeCategory.Items.Add(text);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Filen kunde inte hittas!");
+                MessageBox.Show("Något fel");
+            }
+        }
+        //private void ReadXml()
+        //{
+        //    try
+        //    {
+        //        string minText = "blah.xml";
+        //        using (var ReadFile = new StreamReader(minText))
+        //        {
+        //            string line;
+        //            while ((line = ReadFile.ReadLine()) != null)
+        //            {
+        //                foreach (string text in line.Split())
+        //                {
+        //                    lvPodcast.Items.Add(text);
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        Console.WriteLine("Filen kunde inte hittas!");
+        //        MessageBox.Show("Något fel");
+        //    }
+        //}
         private void UpdateComboBox(ComboBox comboBox)
         {
             comboBox.Items.Clear();
@@ -47,6 +100,11 @@ namespace Podcast
             PodcastFeed.Add(lvPodcast, newUrl, frequence, category);
             
             setTimer();
+
+            
+            //var xml = SaveToXml(newUrl);
+            //File.WriteAllText("blah.xml", xml);
+            
         }
 
         private void setTimer()
@@ -61,6 +119,7 @@ namespace Podcast
             Timer[tbUrl.Text].Add(timers);
             timers.Start();
         }
+        
 
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
@@ -138,5 +197,17 @@ namespace Podcast
                 }          
             }
         }
+        //public static string SaveToXml(string url)
+        //{
+
+        //    string text;
+        //    using (var client = new WebClient())
+        //    {
+        //        text = client.DownloadString(url);
+        //    }
+        //    return text;
+        //}
+
     }
+    
 }
