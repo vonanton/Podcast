@@ -24,7 +24,6 @@ namespace Podcast.BLL
                 category
             });
             listView.Items.Add(listViewItem);
-           
 
         }
 
@@ -36,7 +35,6 @@ namespace Podcast.BLL
             listView.Items.Add(listViewItem);
             SaveCategory(listView);
 
-            
         }
         public void SaveCategory(ListView listView)
         {
@@ -49,12 +47,13 @@ namespace Podcast.BLL
                 SaveFile.WriteLine(item.Text);
             }
 
-
             SaveFile.Close();
         }
-        //public void SaveRSS(ListView listView)
+        //public void SaveFeed(ListView listView)
         //{
-        //    const string path = "RSS.xml";
+            //const string path = "feed.xml";
+            //StreamWriter SaveFeed = new StreamWriter(path);
+
 
         //    XmlSerializer SaveFile = new XmlSerializer(typeof(ListViewItem));
 

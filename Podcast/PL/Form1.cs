@@ -33,9 +33,6 @@ namespace Podcast
             //ReadXml();
         }
             
-
-
-        
         private void ReadFile(){
             try
             {
@@ -59,7 +56,7 @@ namespace Podcast
                 MessageBox.Show("Något fel");
             }
         }
-        //private void ReadXml()
+        //private void ReadFeed()
         //{
         //    try
         //    {
