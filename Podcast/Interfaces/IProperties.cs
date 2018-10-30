@@ -9,8 +9,9 @@ namespace Podcast.Interfaces
 {
     interface IProperties
     {
-        string Episodes { get; set; }
-        string Title { get; set; }
-        string Description { get; set; }
+        Dictionary<string, List<string>> EpisodeSummary { get; set; }
+        Dictionary<string, List<string>> Episodes { get; set; }
+        string EpisodeCount { get; set; }
+        string PodTitle { get; set; }
     }
 }
