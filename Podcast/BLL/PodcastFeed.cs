@@ -2,6 +2,7 @@
 using Podcast.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Text;
@@ -26,9 +27,39 @@ namespace Podcast.BLL
             await readRss.LoadRss(url);
             EpisodeCount = readRss.EpisodeCount;
             PodTitle = readRss.PodTitle;
-
+            SaveFeed(listView, url, frekvens, category);
             base.Add(listView, EpisodeCount, PodTitle, frekvens, category);
+            
         }
+        public void SaveFeed(ListView listView, string url, string frekvens, string category)
+        {
+            const string path = "feed.xml";
+            StreamWriter SaveFeeds = new StreamWriter(path);
+            EpisodeCount = readRss.EpisodeCount;
+            PodTitle = readRss.PodTitle;
+            var listViewItem = new ListViewItem(new[] {
+                url, EpisodeCount, PodTitle, frekvens, category
+            });
+            foreach(var lv in listViewItem.SubItems)
+            {
+                SaveFeeds.WriteLine(lv);
+            }
+            SaveFeeds.Close();
+        }
+            //    XmlSerializer SaveFile = new XmlSerializer(typeof(ListViewItem));
+
+                //using (FileStream stream = File.OpenWrite(path))
+            //   {
+            //        SaveFile.Serialize(stream, listView.Items);
+            //    }
+            //    //foreach (ListViewItem item in listView.Items)
+            //    //{
+            //    //    SaveFile.WriteLine(item);
+            //    //}
+
+
+            //    //SaveFile.Close();
+        
 
         public void ListEpisodes(ListView lvPodcastEpisodes, ListView lvPodcast)
         {

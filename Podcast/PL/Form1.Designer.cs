@@ -65,11 +65,11 @@
             this.Frekvens,
             this.Kategori});
             this.lvPodcast.FullRowSelect = true;
-            this.lvPodcast.Location = new System.Drawing.Point(13, 14);
+            this.lvPodcast.Location = new System.Drawing.Point(11, 14);
             this.lvPodcast.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lvPodcast.MultiSelect = false;
             this.lvPodcast.Name = "lvPodcast";
-            this.lvPodcast.Size = new System.Drawing.Size(502, 192);
+            this.lvPodcast.Size = new System.Drawing.Size(558, 192);
             this.lvPodcast.TabIndex = 0;
             this.lvPodcast.UseCompatibleStateImageBehavior = false;
             this.lvPodcast.View = System.Windows.Forms.View.Details;
@@ -195,7 +195,7 @@
             this.lvCategory.Location = new System.Drawing.Point(599, 9);
             this.lvCategory.Margin = new System.Windows.Forms.Padding(2);
             this.lvCategory.Name = "lvCategory";
-            this.lvCategory.Size = new System.Drawing.Size(280, 144);
+            this.lvCategory.Size = new System.Drawing.Size(418, 144);
             this.lvCategory.TabIndex = 11;
             this.lvCategory.UseCompatibleStateImageBehavior = false;
             this.lvCategory.View = System.Windows.Forms.View.Details;
@@ -210,7 +210,7 @@
             this.tbCategories.Location = new System.Drawing.Point(599, 158);
             this.tbCategories.Margin = new System.Windows.Forms.Padding(2);
             this.tbCategories.Name = "tbCategories";
-            this.tbCategories.Size = new System.Drawing.Size(280, 20);
+            this.tbCategories.Size = new System.Drawing.Size(418, 20);
             this.tbCategories.TabIndex = 12;
             // 
             // btnAddCategory
@@ -249,7 +249,7 @@
             // lblPodcast
             // 
             this.lblPodcast.AutoSize = true;
-            this.lblPodcast.Location = new System.Drawing.Point(8, 472);
+            this.lblPodcast.Location = new System.Drawing.Point(12, 305);
             this.lblPodcast.Name = "lblPodcast";
             this.lblPodcast.Size = new System.Drawing.Size(204, 13);
             this.lblPodcast.TabIndex = 16;
@@ -258,9 +258,9 @@
             // lvPodcastEpisodes
             // 
             this.lvPodcastEpisodes.BackColor = System.Drawing.Color.Honeydew;
-            this.lvPodcastEpisodes.Location = new System.Drawing.Point(12, 495);
+            this.lvPodcastEpisodes.Location = new System.Drawing.Point(15, 331);
             this.lvPodcastEpisodes.Name = "lvPodcastEpisodes";
-            this.lvPodcastEpisodes.Size = new System.Drawing.Size(752, 145);
+            this.lvPodcastEpisodes.Size = new System.Drawing.Size(600, 206);
             this.lvPodcastEpisodes.TabIndex = 17;
             this.lvPodcastEpisodes.UseCompatibleStateImageBehavior = false;
             this.lvPodcastEpisodes.View = System.Windows.Forms.View.List;
@@ -269,7 +269,7 @@
             // lblPodcastEpisode
             // 
             this.lblPodcastEpisode.AutoSize = true;
-            this.lblPodcastEpisode.Location = new System.Drawing.Point(809, 382);
+            this.lblPodcastEpisode.Location = new System.Drawing.Point(657, 277);
             this.lblPodcastEpisode.Name = "lblPodcastEpisode";
             this.lblPodcastEpisode.Size = new System.Drawing.Size(232, 13);
             this.lblPodcastEpisode.TabIndex = 18;
@@ -278,11 +278,11 @@
             // tbEpisodeSummary
             // 
             this.tbEpisodeSummary.BackColor = System.Drawing.Color.Honeydew;
-            this.tbEpisodeSummary.Location = new System.Drawing.Point(813, 405);
+            this.tbEpisodeSummary.Location = new System.Drawing.Point(651, 305);
             this.tbEpisodeSummary.Multiline = true;
             this.tbEpisodeSummary.Name = "tbEpisodeSummary";
             this.tbEpisodeSummary.ReadOnly = true;
-            this.tbEpisodeSummary.Size = new System.Drawing.Size(501, 235);
+            this.tbEpisodeSummary.Size = new System.Drawing.Size(366, 235);
             this.tbEpisodeSummary.TabIndex = 20;
             // 
             // timer1
@@ -294,7 +294,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1326, 651);
+            this.ClientSize = new System.Drawing.Size(1044, 560);
             this.Controls.Add(this.tbEpisodeSummary);
             this.Controls.Add(this.lblPodcastEpisode);
             this.Controls.Add(this.lvPodcastEpisodes);
