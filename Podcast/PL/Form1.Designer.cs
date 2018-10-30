@@ -281,7 +281,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1326, 651);
+            this.ClientSize = new System.Drawing.Size(1328, 651);
             this.Controls.Add(this.tbEpisodeSummary);
             this.Controls.Add(this.lblPodcastEpisode);
             this.Controls.Add(this.lvPodcastEpisodes);

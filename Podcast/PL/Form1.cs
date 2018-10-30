@@ -51,14 +51,34 @@ namespace Podcast
 
         private void setTimer()
         {
+            int setInterval = 0;
+            if(cbUpdate.SelectedItem.ToString() == "5 Minutes")
+            {
+                setInterval = 10000;
+                    //300000;
+            }
+            if(cbUpdate.SelectedItem.ToString() == "10 Minutes")
+            {
+                setInterval = 20000;
+                    //600000;
+            }
+            if (cbUpdate.SelectedItem.ToString() == "15 Minutes")
+            {
+                setInterval = 900000;
+            }
+
+
             Timer timers = new Timer
             {
-                Interval = 4000,
+                Interval = setInterval,
                 Enabled = true
             };
+
+            timers.Tag = tbUrl.Text;
+            
             timers.Tick += new EventHandler(timer1_Tick);
-            Timer.Add(tbUrl.Text, new List<Timer>());
-            Timer[tbUrl.Text].Add(timers);
+            //Timer.Add(tbUrl.Text, new List<Timer>());
+            //Timer[tbUrl.Text].Add(timers);
             timers.Start();
         }
 
@@ -117,26 +137,35 @@ namespace Podcast
         private void btnSavePodChanges_Click(object sender, EventArgs e)
         {
             PodcastFeed.SaveChanges(lvPodcast, cbUpdate, cbChangeCategory);
+            setTimer();
         }
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
             //ReadRss readRss = new ReadRss();
-            string frequence = cbUpdate.GetItemText(cbUpdate.SelectedItem);
-            string category = cbChangeCategory.GetItemText(cbChangeCategory.SelectedItem);
+
             //var newUrl = "";
-            foreach(var url in Urls)
+            /*foreach(var url in Urls)
             {
                 foreach(var kv in Timer)
                 {
                     if(kv.Key == url)
-                    {
-                        string newUrl = url;
-                        await PodcastFeed.readRss.LoadRss(newUrl);
-                        //PodcastFeed.Add(lvPodcast, newUrl, frequence, category);
-                    }
-                }          
+                    {*/
+            
+            Timer timer = (Timer)sender;
+            if (timer.Tag != null)
+            {
+                string newUrl = (string)timer.Tag;
+                
+                await PodcastFeed.readRss.LoadRss(newUrl);
+                //then do some DB stuff to get the contact details use contactID
             }
+            
+                        
+                        //PodcastFeed.Add(lvPodcast, newUrl, frequence, category);
+                    /*}
+                }          
+            }*/
         }
     }
 }
