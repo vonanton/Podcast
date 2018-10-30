@@ -63,7 +63,6 @@ namespace Podcast.BLL
 
         public void ListEpisodes(ListView lvPodcastEpisodes, ListView lvPodcast)
         {
-            
             Episodes = readRss.Episodes;
             string podTitle = lvPodcast.SelectedItems[0].SubItems[1].Text;
             foreach (var episodes in Episodes)

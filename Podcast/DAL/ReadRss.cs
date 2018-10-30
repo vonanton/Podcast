@@ -18,6 +18,7 @@ namespace Podcast.DAL
         public Dictionary<string, List<string>> EpisodeSummary { get; set; }
         public string EpisodeCount { get; set; }
         public string PodTitle { get; set; }
+        public string EpisodeTitle { get; set; }
 
         public ReadRss()
         {
@@ -40,35 +41,38 @@ namespace Podcast.DAL
 
                 EpisodeCount = numberOfItems(rssUrl).ToString();
                 PodTitle = feed.Title.Text;
-               
+                
                 foreach (SyndicationItem episodes in feed.Items)
                 {
-                    string EpisodeTitle = episodes.Title.Text;
-                    
+                    EpisodeTitle = episodes.Title.Text;
+
                     if(!EpisodeSummary.ContainsKey(EpisodeTitle))
                     {
                         EpisodeSummary.Add(EpisodeTitle, new List<string>());
                         EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
                     }
-                    if (!Episodes.ContainsKey(PodTitle))
+                    if(!Episodes.ContainsKey(PodTitle))
                     {
                         Episodes.Add(PodTitle, new List<string>());
                         Episodes[PodTitle].Add(EpisodeTitle);
                     }
                     else
                     {
-                        foreach (var values in Episodes.Values)
+                        bool Exists = Episodes.Values.Any(value => value.Contains(EpisodeTitle));
+                        if (!Exists)
                         {
-                            if(!values.Contains(EpisodeTitle))
-                            {
-                                Episodes[PodTitle].Add(EpisodeTitle);
-                                EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
-                            }
-                        }        
+                            Episodes[PodTitle].Add(EpisodeTitle);
+                            EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
+                        }
+
+                       
+                        
                     }
                 }
             });
         }
+
+
 
         private int numberOfItems(string feedUrl)
         {
