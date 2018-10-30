@@ -30,6 +30,7 @@ namespace Podcast
             Urls = new List<string>();
             Timer = new Dictionary<string, List<Timer>>();
             ReadFile();
+            ReadFeed();
             //ReadXml();
         }
             
@@ -56,30 +57,54 @@ namespace Podcast
                 MessageBox.Show("Något fel");
             }
         }
-        //private void ReadFeed()
-        //{
-        //    try
-        //    {
-        //        string minText = "blah.xml";
-        //        using (var ReadFile = new StreamReader(minText))
-        //        {
-        //            string line;
-        //            while ((line = ReadFile.ReadLine()) != null)
-        //            {
-        //                foreach (string text in line.Split())
-        //                {
-        //                    lvPodcast.Items.Add(text);
-        //                }
-        //            }
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-        //        Console.WriteLine("Filen kunde inte hittas!");
-        //        MessageBox.Show("Något fel");
-        //    }
-        //}
-        private void UpdateComboBox(ComboBox comboBox)
+        private void ReadFeed()
+        {
+            try
+            {
+                string minTex = "feed.xml";
+                using (var ReadFile = new StreamReader(minTex))
+                {
+                    string line;
+                    while ((line = ReadFile.ReadLine()) != null)
+                    {
+                        foreach (string text in line.Split())
+                        {
+                            lvPodcast.Items.Add(text);
+                           // cbChangeCategory.Items.Add(text);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Filen kunde inte hittas!");
+                MessageBox.Show("Något fel");
+            }
+        }
+                //private void ReadFeed()
+                //{
+                //    try
+                //    {
+                //        string minText = "blah.xml";
+                //        using (var ReadFile = new StreamReader(minText))
+                //        {
+                //            string line;
+                //            while ((line = ReadFile.ReadLine()) != null)
+                //            {
+                //                foreach (string text in line.Split())
+                //                {
+                //                    lvPodcast.Items.Add(text);
+                //                }
+                //            }
+                //        }
+                //    }
+                //    catch (Exception)
+                //    {
+                //        Console.WriteLine("Filen kunde inte hittas!");
+                //        MessageBox.Show("Något fel");
+                //    }
+                //}
+                private void UpdateComboBox(ComboBox comboBox)
         {
             comboBox.Items.Clear();
             foreach (var category in Category.ListOfCategorys)
@@ -193,6 +218,11 @@ namespace Podcast
                     }
                 }          
             }
+        }
+
+        private void lvCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
         //public static string SaveToXml(string url)
         //{
