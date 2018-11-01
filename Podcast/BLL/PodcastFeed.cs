@@ -2,7 +2,6 @@
 using Podcast.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Text;
@@ -22,48 +21,45 @@ namespace Podcast.BLL
         public string PodTitle { get; set; }
         
 
+        public PodcastFeed()
+        {
+            Episodes = readRss.Episodes;
+            EpisodeSummary = readRss.EpisodeSummary;
+        }
+        public void testaDicToXml()
+        {
+            SaveXml saveXml = new SaveXml();
+            saveXml.SaveEpisodes(Episodes);
+            saveXml.SaveSummary(EpisodeSummary);
+        }
+
         public async void Add(ListView listView, string url, string frekvens, string category)
         {
             await readRss.LoadRss(url);
             EpisodeCount = readRss.EpisodeCount;
             PodTitle = readRss.PodTitle;
-            SaveFeed(listView, url, frekvens, category);
-            base.Add(listView, EpisodeCount, PodTitle, frekvens, category);
-            
+
+            base.Add(listView, EpisodeCount, PodTitle, frekvens, category, url);
         }
-        public void SaveFeed(ListView listView, string url, string frekvens, string category)
+
+        /*SKIT FÅ DEN ATT KÖRA PÅ ENSKILD RAD INTE ALLA
+        public void UpdateCount(ListView listView, string url)
         {
-            const string path = "feed.xml";
-            StreamWriter SaveFeeds = new StreamWriter(path);
-            EpisodeCount = readRss.EpisodeCount;
-            PodTitle = readRss.PodTitle;
-            var listViewItem = new ListViewItem(new[] {
-                url, EpisodeCount, PodTitle, frekvens, category
-            });
-            foreach(var lv in listViewItem.SubItems)
+            string updateCount = readRss.numberOfItems(url).ToString();
+            for(int i = 0; i < listView.Items.Count; i++)
             {
-                SaveFeeds.WriteLine(lv);
+                string count = listView.Items[i].SubItems[0].Text;
+                if(updateCount != count)
+                {
+                    listView.Items[i].SubItems[0].Text = updateCount;
+                }
             }
-            SaveFeeds.Close();
-        }
-            //    XmlSerializer SaveFile = new XmlSerializer(typeof(ListViewItem));
-
-                //using (FileStream stream = File.OpenWrite(path))
-            //   {
-            //        SaveFile.Serialize(stream, listView.Items);
-            //    }
-            //    //foreach (ListViewItem item in listView.Items)
-            //    //{
-            //    //    SaveFile.WriteLine(item);
-            //    //}
-
-
-            //    //SaveFile.Close();
-        
+            
+        }*/
 
         public void ListEpisodes(ListView lvPodcastEpisodes, ListView lvPodcast)
         {
-            Episodes = readRss.Episodes;
+            //Episodes = readRss.Episodes;
             string podTitle = lvPodcast.SelectedItems[0].SubItems[1].Text;
             foreach (var episodes in Episodes)
             {
@@ -76,10 +72,10 @@ namespace Podcast.BLL
                     } 
             }
         }
+
         public void ListEpisodeSummary(ListView lvPodcastEpisode, TextBox summaryText)
         {
-            
-            EpisodeSummary = readRss.EpisodeSummary;
+            //EpisodeSummary = readRss.EpisodeSummary;
             string episodeTitle = lvPodcastEpisode.SelectedItems[0].Text;
             foreach (var summary in EpisodeSummary)
             {

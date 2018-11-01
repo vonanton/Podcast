@@ -51,6 +51,7 @@
             this.btnDeleteCategory = new System.Windows.Forms.Button();
             this.lblPodcast = new System.Windows.Forms.Label();
             this.lvPodcastEpisodes = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblPodcastEpisode = new System.Windows.Forms.Label();
             this.tbEpisodeSummary = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -245,13 +246,20 @@
             // lvPodcastEpisodes
             // 
             this.lvPodcastEpisodes.BackColor = System.Drawing.Color.Honeydew;
+            this.lvPodcastEpisodes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
             this.lvPodcastEpisodes.Location = new System.Drawing.Point(12, 495);
             this.lvPodcastEpisodes.Name = "lvPodcastEpisodes";
             this.lvPodcastEpisodes.Size = new System.Drawing.Size(752, 145);
             this.lvPodcastEpisodes.TabIndex = 17;
             this.lvPodcastEpisodes.UseCompatibleStateImageBehavior = false;
-            this.lvPodcastEpisodes.View = System.Windows.Forms.View.List;
+            this.lvPodcastEpisodes.View = System.Windows.Forms.View.Details;
             this.lvPodcastEpisodes.SelectedIndexChanged += new System.EventHandler(this.lvPodcastEpisodes_SelectedIndexChanged);
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Avsnitt";
+            this.columnHeader2.Width = 133;
             // 
             // lblPodcastEpisode
             // 
@@ -303,6 +311,7 @@
             this.Controls.Add(this.lvPodcast);
             this.Name = "Form1";
             this.Text = "RSS PODCAST FEEDREADER";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -335,6 +344,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.TextBox tbEpisodeSummary;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
     }
 }
 
