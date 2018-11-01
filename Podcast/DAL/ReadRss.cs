@@ -58,23 +58,19 @@ namespace Podcast.DAL
                     }
                     else
                     {
-                        bool Exists = Episodes.Values.Any(value => value.Contains(EpisodeTitle));
-                        if (!Exists)
+                        bool EpisodeExists = Episodes.Values.Any(value => value.Contains(EpisodeTitle));
+                        bool SummaryExists = EpisodeSummary.Values.Any(value => value.Contains(episodes.Summary.Text));
+                        if (!EpisodeExists && !SummaryExists)
                         {
                             Episodes[PodTitle].Add(EpisodeTitle);
                             EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
-                        }
-
-                       
-                        
+                        }   
                     }
                 }
             });
         }
 
-
-
-        private int numberOfItems(string feedUrl)
+        public int numberOfItems(string feedUrl)
         {
             using (XmlReader reader = XmlReader.Create(feedUrl))
             { 

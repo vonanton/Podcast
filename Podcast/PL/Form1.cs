@@ -20,13 +20,13 @@ namespace Podcast
         Category Category = new Category();
         
         List<string> Urls { get; set; }
-        public Dictionary<string, List<Timer>> Timer { get; set; }
+        //public Dictionary<string, List<Timer>> Timer { get; set; }
 
         public Form1()
         {
             InitializeComponent();
             Urls = new List<string>();
-            Timer = new Dictionary<string, List<Timer>>();
+            //Timer = new Dictionary<string, List<Timer>>();
         }
 
         private void UpdateComboBox(ComboBox comboBox)
@@ -47,6 +47,7 @@ namespace Podcast
             PodcastFeed.Add(lvPodcast, newUrl, frequence, category);
             
             setTimer();
+            
         }
 
         private void setTimer()
@@ -67,12 +68,9 @@ namespace Podcast
                 setInterval = 900000;
             }
 
-
-            Timer timers = new Timer
-            {
-                Interval = setInterval,
-                Enabled = true
-            };
+            Timer timers = new Timer();
+            timers.Interval = setInterval;
+            timers.Enabled = true;
 
             timers.Tag = tbUrl.Text;
             
@@ -114,6 +112,18 @@ namespace Podcast
                 lblPodcast.Text = lvPodcast.SelectedItems[0].SubItems[1].Text;
             }
 
+            DisplayUrl(tbUrl);
+        }
+
+        public void DisplayUrl(TextBox url)
+        {    
+            if (lvPodcastEpisodes.SelectedItems.Count > 0)
+            {
+                foreach (var Url in Urls)
+                {
+                    url.Text = Url;    
+                }
+            }
         }
 
         private void lvPodcastEpisodes_SelectedIndexChanged(object sender, EventArgs e)
@@ -137,35 +147,27 @@ namespace Podcast
         private void btnSavePodChanges_Click(object sender, EventArgs e)
         {
             PodcastFeed.SaveChanges(lvPodcast, cbUpdate, cbChangeCategory);
+            
             setTimer();
         }
 
         private async void timer1_Tick(object sender, EventArgs e)
-        {
-            //ReadRss readRss = new ReadRss();
-
-            //var newUrl = "";
-            /*foreach(var url in Urls)
-            {
-                foreach(var kv in Timer)
-                {
-                    if(kv.Key == url)
-                    {*/
-            
+        {   
             Timer timer = (Timer)sender;
             if (timer.Tag != null)
             {
                 string newUrl = (string)timer.Tag;
-                
+                SaveXml saveXml = new SaveXml();
+                saveXml.SavePodcast(lvPodcast);
+                PodcastFeed.testaDicToXml();
                 await PodcastFeed.readRss.LoadRss(newUrl);
-                //then do some DB stuff to get the contact details use contactID
+                //PodcastFeed.UpdateCount(lvPodcast, newUrl);
             }
-            
-                        
-                        //PodcastFeed.Add(lvPodcast, newUrl, frequence, category);
-                    /*}
-                }          
-            }*/
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //UpdateComboBox(cbChangeCategory);
         }
     }
 }
