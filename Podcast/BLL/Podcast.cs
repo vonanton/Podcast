@@ -11,7 +11,7 @@ namespace Podcast.BLL
     public abstract class Podcast
     {
 
-        public virtual void Add(ListView listView, string episodeCount, string podTitle, string frekvens, string category)
+        public virtual void Add(ListView listView, string episodeCount, string podTitle, string frekvens, string category, string url)
         {
             var listViewItem = new ListViewItem(new[] {
                 episodeCount,
@@ -20,6 +20,7 @@ namespace Podcast.BLL
                 category
             });
             listView.Items.Add(listViewItem);
+            listViewItem.Tag = url;
         }
 
         public virtual void Add(ListView listView, string item)
@@ -28,6 +29,7 @@ namespace Podcast.BLL
                 item,
             });
             listView.Items.Add(listViewItem);
+            
         }
 
         public virtual void SaveChanges(ListView lvCategory, ListView lvPodcast, TextBox textBox)

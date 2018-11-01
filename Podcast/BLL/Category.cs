@@ -14,9 +14,9 @@ namespace Podcast.BLL
         SaveXml saveXml = new SaveXml();
 
 
-        public void Add(ListView listView, TextBox categoryText)
+        public override void Add(ListView listView, string categoryText)
         {
-            string Category = categoryText.Text;
+            string Category = categoryText;
             ListOfCategorys.Add(Category);
             saveXml.SaveCategory(ListOfCategorys);
             base.Add(listView, Category);

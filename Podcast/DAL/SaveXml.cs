@@ -12,13 +12,15 @@ namespace Podcast.DAL
 
         public void SavePodcast(ListView listView)
         {
+            
             document = new XDocument(new XElement("Podcast",
             from item in listView.Items.Cast<ListViewItem>()
             select new XElement("Podcast",
                 item.SubItems.Cast<ListViewSubItem>()
                     .Select((subItem, i) => new XAttribute(
-                        listView.Columns[i].Text.ToLower(),
+                        listView.Columns[i].Text,
                         subItem.Text)))));
+
             document.Save("Poddar.xml");
         }
 

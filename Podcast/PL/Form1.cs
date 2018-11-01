@@ -20,13 +20,13 @@ namespace Podcast
         Category Category = new Category();
         
         List<string> Urls { get; set; }
-        //public Dictionary<string, List<Timer>> Timer { get; set; }
+        public Dictionary<string, Timer> Timer { get; set; }
 
         public Form1()
         {
             InitializeComponent();
             Urls = new List<string>();
-            //Timer = new Dictionary<string, List<Timer>>();
+            Timer = new Dictionary<string, Timer>();
         }
 
         private void UpdateComboBox(ComboBox comboBox)
@@ -39,7 +39,7 @@ namespace Podcast
         }
 
         private void btnAddPodcast_Click(object sender, EventArgs e)
-        {
+        {   
             string newUrl = tbUrl.Text;
             Urls.Add(newUrl);
             string frequence = cbUpdate.GetItemText(cbUpdate.SelectedItem);
@@ -47,7 +47,6 @@ namespace Podcast
             PodcastFeed.Add(lvPodcast, newUrl, frequence, category);
             
             setTimer();
-            
         }
 
         private void setTimer()
@@ -75,14 +74,45 @@ namespace Podcast
             timers.Tag = tbUrl.Text;
             
             timers.Tick += new EventHandler(timer1_Tick);
-            //Timer.Add(tbUrl.Text, new List<Timer>());
-            //Timer[tbUrl.Text].Add(timers);
+            Timer.Add(tbUrl.Text, timers);
+            
             timers.Start();
+        }
+
+        public void ChangeTimer()
+        {
+            int setInterval = 0;
+            if (cbUpdate.SelectedItem.ToString() == "5 Minutes")
+            {
+                setInterval = 10000;
+                //300000;
+            }
+            if (cbUpdate.SelectedItem.ToString() == "10 Minutes")
+            {
+                setInterval = 20000;
+                //600000;
+            }
+            if (cbUpdate.SelectedItem.ToString() == "15 Minutes")
+            {
+                setInterval = 900000;
+            }
+
+            string URL = lvPodcast.SelectedItems[0].Tag.ToString();
+                foreach(var kv in Timer)
+                {
+                    if(kv.Key == URL)
+                    {
+                        kv.Value.Interval = setInterval;
+                        kv.Value.Enabled = true;
+                        kv.Value.Tick += new EventHandler(timer1_Tick);
+                        kv.Value.Start();
+                    }
+                }
         }
 
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
-            Category.Add(lvCategory, tbCategories);
+            Category.Add(lvCategory, tbCategories.Text);
             UpdateComboBox(cbChangeCategory);
         }
 
@@ -111,19 +141,6 @@ namespace Podcast
                 PodcastFeed.ListEpisodes(lvPodcastEpisodes, lvPodcast);
                 lblPodcast.Text = lvPodcast.SelectedItems[0].SubItems[1].Text;
             }
-
-            DisplayUrl(tbUrl);
-        }
-
-        public void DisplayUrl(TextBox url)
-        {    
-            if (lvPodcastEpisodes.SelectedItems.Count > 0)
-            {
-                foreach (var Url in Urls)
-                {
-                    url.Text = Url;    
-                }
-            }
         }
 
         private void lvPodcastEpisodes_SelectedIndexChanged(object sender, EventArgs e)
@@ -147,8 +164,7 @@ namespace Podcast
         private void btnSavePodChanges_Click(object sender, EventArgs e)
         {
             PodcastFeed.SaveChanges(lvPodcast, cbUpdate, cbChangeCategory);
-            
-            setTimer();
+            ChangeTimer();
         }
 
         private async void timer1_Tick(object sender, EventArgs e)
@@ -168,6 +184,7 @@ namespace Podcast
         private void Form1_Load(object sender, EventArgs e)
         {
             //UpdateComboBox(cbChangeCategory);
+            cbUpdate.SelectedIndex = 0;
         }
     }
 }

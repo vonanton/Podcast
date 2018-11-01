@@ -50,6 +50,7 @@
     <Compile Include="BLL\Category.cs" />
     <Compile Include="BLL\Podcast.cs" />
     <Compile Include="BLL\PodcastFeed.cs" />
+    <Compile Include="DAL\LoadXml.cs" />
     <Compile Include="DAL\ReadRss.cs" />
     <Compile Include="DAL\SaveXml.cs" />
     <Compile Include="Interfaces\IProperties.cs" />

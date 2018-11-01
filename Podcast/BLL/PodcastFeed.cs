@@ -39,7 +39,7 @@ namespace Podcast.BLL
             EpisodeCount = readRss.EpisodeCount;
             PodTitle = readRss.PodTitle;
 
-            base.Add(listView, EpisodeCount, PodTitle, frekvens, category);
+            base.Add(listView, EpisodeCount, PodTitle, frekvens, category, url);
         }
 
         /*SKIT FÅ DEN ATT KÖRA PÅ ENSKILD RAD INTE ALLA
