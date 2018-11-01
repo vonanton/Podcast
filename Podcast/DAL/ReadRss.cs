@@ -48,12 +48,12 @@ namespace Podcast.DAL
                     if(!EpisodeSummary.ContainsKey(EpisodeTitle))
                     {
                         EpisodeSummary.Add(EpisodeTitle, new List<string>());
-                        EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
+                        //EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
                     }
                     if (!Episodes.ContainsKey(PodTitle))
                     {
                         Episodes.Add(PodTitle, new List<string>());
-                        Episodes[PodTitle].Add(EpisodeTitle);
+                        //Episodes[PodTitle].Add(EpisodeTitle);
                     }
                     else
                     {

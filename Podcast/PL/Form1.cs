@@ -108,7 +108,7 @@ namespace Podcast
         {
             Timer timers = new Timer
             {
-                Interval = 4000,
+                Interval = 1000000,
                 Enabled = true
             };
             timers.Tick += new EventHandler(timer1_Tick);
@@ -188,11 +188,19 @@ namespace Podcast
                     if(kv.Key == url)
                     {
                         string newUrl = url;
+                        lvPodcastEpisodes.BeginUpdate();
                         await PodcastFeed.readRss.LoadRss(newUrl);
+                        
                         //PodcastFeed.Add(lvPodcast, newUrl, frequence, category);
                     }
                 }          
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            cbUpdate.SelectedItem = null;
+            cbUpdate.SelectedIndex = 0;
         }
         //public static string SaveToXml(string url)
         //{

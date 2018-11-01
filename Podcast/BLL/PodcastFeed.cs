@@ -34,18 +34,29 @@ namespace Podcast.BLL
         public void SaveFeed(ListView listView, string url, string frekvens, string category)
         {
             const string path = "feed.xml";
-            StreamWriter SaveFeeds = new StreamWriter(path);
-            EpisodeCount = readRss.EpisodeCount;
-            PodTitle = readRss.PodTitle;
-            var listViewItem = new ListViewItem(new[] {
-                url, EpisodeCount, PodTitle, frekvens, category
-            });
-            foreach(var lv in listViewItem.SubItems)
-            {
-                SaveFeeds.WriteLine(lv);
+
+            if (!File.Exists(path)) {
+                using (XmlTextWriter SaveFeeds = new XmlTextWriter(path, Encoding.UTF8))
+                {
+                    EpisodeCount = readRss.EpisodeCount;
+                    PodTitle = readRss.PodTitle;
+                    string urls = listView.Tag.ToString();
+                    
+                    
+                    foreach (ListViewItem list in listView.Items)
+                    {
+                        SaveFeeds.WriteStartElement(list.ToString());
+                        SaveFeeds.WriteEndElement();
+                        SaveFeeds.Close();
+                    }
+                }
             }
-            SaveFeeds.Close();
-        }
+           
+            
+                
+            }
+         
+        
             //    XmlSerializer SaveFile = new XmlSerializer(typeof(ListViewItem));
 
                 //using (FileStream stream = File.OpenWrite(path))
