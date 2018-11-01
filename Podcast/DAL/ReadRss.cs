@@ -13,11 +13,11 @@ namespace Podcast.DAL
 {
     public class ReadRss : IProperties
     {
-
         public Dictionary<string, List<string>> Episodes { get; set; }
         public Dictionary<string, List<string>> EpisodeSummary { get; set; }
         public string EpisodeCount { get; set; }
         public string PodTitle { get; set; }
+        public string EpisodeTitle { get; set; }
 
         public ReadRss()
         {
@@ -28,8 +28,7 @@ namespace Podcast.DAL
         public async Task LoadRss(string rssUrl)
         {
             await Task.Run(() =>
-            {
-                
+            { 
                 //https://cdn.radioplay.se/data/rss/498.xml
                 //https://cdn.radioplay.se/data/rss/490.xml
                 //https://cdn.radioplay.se/data/rss/503.xml
@@ -40,37 +39,39 @@ namespace Podcast.DAL
 
                 EpisodeCount = numberOfItems(rssUrl).ToString();
                 PodTitle = feed.Title.Text;
-               
+                
                 foreach (SyndicationItem episodes in feed.Items)
                 {
-                    string EpisodeTitle = episodes.Title.Text;
-                    
+                    EpisodeTitle = episodes.Title.Text;
+
                     if(!EpisodeSummary.ContainsKey(EpisodeTitle))
                     {
                         EpisodeSummary.Add(EpisodeTitle, new List<string>());
-                        //EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
+                        EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
                     }
-                    if (!Episodes.ContainsKey(PodTitle))
+                    if(!Episodes.ContainsKey(PodTitle))
                     {
                         Episodes.Add(PodTitle, new List<string>());
-                        //Episodes[PodTitle].Add(EpisodeTitle);
+                        Episodes[PodTitle].Add(EpisodeTitle);
                     }
                     else
                     {
-                        foreach (var values in Episodes.Values)
+                        bool EpisodeExists = Episodes.Values.Any(value => value.Contains(EpisodeTitle));
+                        bool SummaryExists = EpisodeSummary.Values.Any(value => value.Contains(episodes.Summary.Text));
+                        if (!EpisodeExists)
                         {
-                            if(!values.Contains(EpisodeTitle))
-                            {
-                                Episodes[PodTitle].Add(EpisodeTitle);
-                                EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
-                            }
-                        }        
+                            Episodes[PodTitle].Add(EpisodeTitle);
+                        }   
+                        if(!SummaryExists)
+                        {
+                            EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
+                        }
                     }
                 }
             });
         }
 
-        private int numberOfItems(string feedUrl)
+        public int numberOfItems(string feedUrl)
         {
             using (XmlReader reader = XmlReader.Create(feedUrl))
             { 

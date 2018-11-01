@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Podcast.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,14 @@ namespace Podcast.BLL
     class Category : Podcast
     {
         public List<string> ListOfCategorys = new List<string>();
+        SaveXml saveXml = new SaveXml();
 
-        public void Add(ListView listView, TextBox categoryText)
+
+        public override void Add(ListView listView, string categoryText)
         {
-            string Category = categoryText.Text;
+            string Category = categoryText;
             ListOfCategorys.Add(Category);
+            saveXml.SaveCategory(ListOfCategorys);
             base.Add(listView, Category);
         }
 
