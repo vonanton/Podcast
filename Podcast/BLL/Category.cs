@@ -13,7 +13,6 @@ namespace Podcast.BLL
         public List<string> ListOfCategorys = new List<string>();
         SaveXml saveXml = new SaveXml();
 
-
         public override void Add(ListView listView, string categoryText)
         {
             string Category = categoryText;
@@ -22,12 +21,15 @@ namespace Podcast.BLL
             base.Add(listView, Category);
         }
 
-        public void AddCategoryXml(ListView listView, string categoryText)
+        public void AddCategoryXml(ListView listView)
         {
-            string Category = categoryText;
-            ListOfCategorys.Add(Category);
-            
-            base.Add(listView, Category);
+            LoadXml loadXml = new LoadXml();
+            loadXml.LoadCategory(ListOfCategorys);
+
+            foreach(var category in ListOfCategorys)
+            {
+                base.Add(listView, category);
+            }
         }
 
         public override void SaveChanges(ListView lvCategory, ListView lvPodcast, TextBox categoryText)
@@ -36,12 +38,14 @@ namespace Podcast.BLL
             
             ListOfCategorys.Remove(lvCategory.SelectedItems[0].Text);
             ListOfCategorys.Add(newCategory);
+            saveXml.SaveCategory(ListOfCategorys);
             base.SaveChanges(lvCategory, lvPodcast, categoryText);
         }
 
         public override void Remove(ListView listView)
         {
             ListOfCategorys.Remove(listView.SelectedItems[0].Text);
+            saveXml.SaveCategory(ListOfCategorys);
             base.Remove(listView);
         }
     }

@@ -71,7 +71,7 @@ namespace Podcast
             timers.Interval = setInterval;
             timers.Enabled = true;
 
-            timers.Tag = tbUrl.Text;
+            //timers.Tag = tbUrl.Text;
             
             timers.Tick += new EventHandler(timer1_Tick);
             Timer.Add(tbUrl.Text, timers);
@@ -79,7 +79,7 @@ namespace Podcast
             timers.Start();
         }
 
-        public void ChangeTimer()
+        /*public void ChangeTimer()
         {
             int setInterval = 0;
             if (cbUpdate.SelectedItem.ToString() == "5 Minutes")
@@ -108,7 +108,7 @@ namespace Podcast
                         kv.Value.Start();
                     }
                 }
-        }
+        }*/
 
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
@@ -163,8 +163,9 @@ namespace Podcast
 
         private void btnSavePodChanges_Click(object sender, EventArgs e)
         {
-            PodcastFeed.SaveChanges(lvPodcast, cbUpdate, cbChangeCategory);
-            ChangeTimer();
+            string url = tbUrl.Text;
+            PodcastFeed.SaveChanges(lvPodcast, cbUpdate, cbChangeCategory, url);
+            //ChangeTimer();
         }
 
         private async void timer1_Tick(object sender, EventArgs e)
@@ -174,17 +175,56 @@ namespace Podcast
             if (timer.Tag != null)
             {
                 string newUrl = (string)timer.Tag;
-                
-                //PodcastFeed.testaDicToXml();
+
                 await PodcastFeed.readRss.LoadRss(newUrl);
-                //PodcastFeed.UpdateCount(lvPodcast, newUrl);
+
             }
+        }
+
+        public void setLoadTimer()
+        {
+            int setInterval = 0;
+
+            Invoke(new Action(() =>
+            {
+                foreach (ListViewItem item in lvPodcast.Items)
+                {
+                    if (item.SubItems[2].Text == "5 Minutes")
+                    {
+                        setInterval = 10000;
+                        //300000;
+                    }
+                    if (item.SubItems[2].Text == "10 Minutes")
+                    {
+                        setInterval = 20000;
+                        //600000;
+                    }
+                    if (item.SubItems[2].Text == "15 Minutes")
+                    {
+                        setInterval = 900000;
+                    }
+             
+
+                    Timer timers = new Timer();
+                    timers.Interval = setInterval;
+                    timers.Enabled = true;
+
+                    timers.Tag = item.Tag.ToString();
+
+                    timers.Tick += new EventHandler(timer1_Tick);
+                    Timer.Add(item.Tag.ToString(), timers);
+
+                    timers.Start();
+                }
+            }));
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //UpdateComboBox(cbChangeCategory);
-            cbUpdate.SelectedIndex = 0;
+            Category.AddCategoryXml(lvCategory);
+            UpdateComboBox(cbChangeCategory);
+            PodcastFeed.AddPodXml(lvPodcast);
+            Task.Delay(5000).ContinueWith(t => setLoadTimer());
         }
     }
 }

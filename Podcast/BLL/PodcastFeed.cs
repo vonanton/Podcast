@@ -27,29 +27,34 @@ namespace Podcast.BLL
             EpisodeSummary = readRss.EpisodeSummary;
         }
 
-        public void testaDicToXml()
-        {
-            SaveXml saveXml = new SaveXml();
-            
-        }
 
         public async void Add(ListView listView, string url, string frekvens, string category)
         {
+            SaveXml saveXml = new SaveXml();
             await readRss.LoadRss(url);
-            readRss.saveXmltest(url, frekvens, category);
+            saveXml.SavePodcast(url, frekvens, category);
             EpisodeCount = readRss.EpisodeCount;
             PodTitle = readRss.PodTitle;
 
             base.Add(listView, EpisodeCount, PodTitle, frekvens, category, url);
         }
 
-        public async void AddPodXml(ListView listView, string url, string frekvens, string category)
+        public async void AddPodXml(ListView listView)
         {
-            await readRss.LoadRss(url);
-            EpisodeCount = readRss.EpisodeCount;
-            PodTitle = readRss.PodTitle;
+            List<ListViewItem> testLista = new List<ListViewItem>();
+            LoadXml loadXml = new LoadXml();
+            loadXml.LoadPodcast(testLista);
 
-            base.Add(listView, EpisodeCount, PodTitle, frekvens, category, url);
+            foreach(var item in testLista)
+            {
+                var url = item.SubItems[0].Text;
+                var frekvens = item.SubItems[1].Text;
+                var category = item.SubItems[2].Text;
+                await readRss.LoadRss(url);
+                EpisodeCount = readRss.EpisodeCount;
+                PodTitle = readRss.PodTitle;
+                base.Add(listView, EpisodeCount, PodTitle, frekvens, category, url);
+            }
         }
 
 
@@ -86,7 +91,7 @@ namespace Podcast.BLL
 
         public void ListEpisodeSummary(ListView lvPodcastEpisode, TextBox summaryText)
         {
-            
+
             string episodeTitle = lvPodcastEpisode.SelectedItems[0].Text;
             foreach (var summary in EpisodeSummary)
             {
@@ -100,14 +105,20 @@ namespace Podcast.BLL
             }
         }
 
-        public override void SaveChanges(ListView lvPodcast, ComboBox frequence, ComboBox changeCategory)
+        public void SaveChanges(ListView lvPodcast, ComboBox frequence, ComboBox changeCategory, string url)
         {
-            base.SaveChanges(lvPodcast, frequence, changeCategory);
+            string frekvens = frequence.GetItemText(frequence.SelectedItem);
+            string kategori = changeCategory.GetItemText(changeCategory.SelectedItem);
+            //base.SaveChanges(lvPodcast, frequence, changeCategory);
+            Remove(lvPodcast);
+            
+            Add(lvPodcast, url, frekvens, kategori);
         }
 
         public override void Remove(ListView listView)
         {
             Episodes.Remove(listView.SelectedItems[0].SubItems[1].Text);
+            
             base.Remove(listView);
         }
     }
