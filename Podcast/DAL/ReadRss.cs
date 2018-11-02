@@ -69,6 +69,13 @@ namespace Podcast.DAL
                     }
                 }
             });
+            
+        }
+
+        public void saveXmltest(string url, string frekvens, string kategori)
+        {
+            SaveXml saveXml = new SaveXml();
+            saveXml.SavePodcast(url, frekvens, kategori);
         }
 
         public int numberOfItems(string feedUrl)

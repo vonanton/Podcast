@@ -168,14 +168,14 @@ namespace Podcast
         }
 
         private async void timer1_Tick(object sender, EventArgs e)
-        {   
+        {
+            
             Timer timer = (Timer)sender;
             if (timer.Tag != null)
             {
                 string newUrl = (string)timer.Tag;
-                SaveXml saveXml = new SaveXml();
-                saveXml.SavePodcast(lvPodcast);
-                PodcastFeed.testaDicToXml();
+                
+                //PodcastFeed.testaDicToXml();
                 await PodcastFeed.readRss.LoadRss(newUrl);
                 //PodcastFeed.UpdateCount(lvPodcast, newUrl);
             }
