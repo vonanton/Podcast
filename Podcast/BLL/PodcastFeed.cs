@@ -26,14 +26,24 @@ namespace Podcast.BLL
             Episodes = readRss.Episodes;
             EpisodeSummary = readRss.EpisodeSummary;
         }
+
         public void testaDicToXml()
         {
             SaveXml saveXml = new SaveXml();
-            saveXml.SaveEpisodes(Episodes);
-            saveXml.SaveSummary(EpisodeSummary);
+            
         }
 
         public async void Add(ListView listView, string url, string frekvens, string category)
+        {
+            await readRss.LoadRss(url);
+            readRss.saveXmltest(url, frekvens, category);
+            EpisodeCount = readRss.EpisodeCount;
+            PodTitle = readRss.PodTitle;
+
+            base.Add(listView, EpisodeCount, PodTitle, frekvens, category, url);
+        }
+
+        public async void AddPodXml(ListView listView, string url, string frekvens, string category)
         {
             await readRss.LoadRss(url);
             EpisodeCount = readRss.EpisodeCount;
@@ -41,6 +51,7 @@ namespace Podcast.BLL
 
             base.Add(listView, EpisodeCount, PodTitle, frekvens, category, url);
         }
+
 
         /*SKIT FÅ DEN ATT KÖRA PÅ ENSKILD RAD INTE ALLA
         public void UpdateCount(ListView listView, string url)
@@ -59,7 +70,7 @@ namespace Podcast.BLL
 
         public void ListEpisodes(ListView lvPodcastEpisodes, ListView lvPodcast)
         {
-            //Episodes = readRss.Episodes;
+            
             string podTitle = lvPodcast.SelectedItems[0].SubItems[1].Text;
             foreach (var episodes in Episodes)
             {
@@ -75,7 +86,7 @@ namespace Podcast.BLL
 
         public void ListEpisodeSummary(ListView lvPodcastEpisode, TextBox summaryText)
         {
-            //EpisodeSummary = readRss.EpisodeSummary;
+            
             string episodeTitle = lvPodcastEpisode.SelectedItems[0].Text;
             foreach (var summary in EpisodeSummary)
             {
