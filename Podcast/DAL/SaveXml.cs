@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Linq;
 using static System.Windows.Forms.ListViewItem;
 
@@ -8,20 +9,23 @@ namespace Podcast.DAL
 {
     class SaveXml
     {
-        XDocument document;
 
+        XDocument document = new XDocument();
         public void SavePodcast(ListView listView)
         {
             
-            document = new XDocument(new XElement("Podcast",
-            from item in listView.Items.Cast<ListViewItem>()
-            select new XElement("Podcast",
-                item.SubItems.Cast<ListViewSubItem>()
-                    .Select((subItem, i) => new XAttribute(
-                        listView.Columns[i].Text,
-                        subItem.Text)))));
+            XmlDocument document = new XmlDocument();
+            foreach(ListViewItem list in listView.Items)
+            {
+                string urls = list.Tag.ToString();
+                
+                
 
+            }
+            //select new XElement ("Antal", item.Frekvens)
+            //url = ListView.Tag
             document.Save("Poddar.xml");
+
         }
 
         public void SaveCategory(List<string> category)
