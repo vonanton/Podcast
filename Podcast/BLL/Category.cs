@@ -31,15 +31,15 @@ namespace Podcast.BLL
                 base.Add(listView, category);
             }
         }
-
-        public override void SaveChanges(ListView lvCategory, ListView lvPodcast, TextBox categoryText)
+        //ListView lvPodcast, parameter
+        public override void SaveChanges(ListView lvCategory, TextBox categoryText)
         {
             string newCategory = categoryText.Text;
             
             ListOfCategorys.Remove(lvCategory.SelectedItems[0].Text);
             ListOfCategorys.Add(newCategory);
             saveXml.SaveCategory(ListOfCategorys);
-            base.SaveChanges(lvCategory, lvPodcast, categoryText);
+            base.SaveChanges(lvCategory, categoryText);
         }
 
         public override void Remove(ListView listView)

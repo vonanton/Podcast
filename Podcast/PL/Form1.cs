@@ -20,13 +20,15 @@ namespace Podcast
         Category Category = new Category();
         
         List<string> Urls { get; set; }
-        public Dictionary<string, Timer> Timer { get; set; }
+        public Dictionary<string, Timer> Timers { get; set; }
 
         public Form1()
         {
             InitializeComponent();
             Urls = new List<string>();
-            Timer = new Dictionary<string, Timer>();
+            Timers = new Dictionary<string, Timer>();
+            lblPodcastEpisode.Text = "";
+            lblPodcast.Text = "";
         }
 
         private void UpdateComboBox(ComboBox comboBox)
@@ -71,44 +73,13 @@ namespace Podcast
             timers.Interval = setInterval;
             timers.Enabled = true;
 
-            //timers.Tag = tbUrl.Text;
+            timers.Tag = tbUrl.Text;
             
             timers.Tick += new EventHandler(timer1_Tick);
-            Timer.Add(tbUrl.Text, timers);
+            Timers.Add(tbUrl.Text, timers);
             
             timers.Start();
         }
-
-        /*public void ChangeTimer()
-        {
-            int setInterval = 0;
-            if (cbUpdate.SelectedItem.ToString() == "5 Minutes")
-            {
-                setInterval = 10000;
-                //300000;
-            }
-            if (cbUpdate.SelectedItem.ToString() == "10 Minutes")
-            {
-                setInterval = 20000;
-                //600000;
-            }
-            if (cbUpdate.SelectedItem.ToString() == "15 Minutes")
-            {
-                setInterval = 900000;
-            }
-
-            string URL = lvPodcast.SelectedItems[0].Tag.ToString();
-                foreach(var kv in Timer)
-                {
-                    if(kv.Key == URL)
-                    {
-                        kv.Value.Interval = setInterval;
-                        kv.Value.Enabled = true;
-                        kv.Value.Tick += new EventHandler(timer1_Tick);
-                        kv.Value.Start();
-                    }
-                }
-        }*/
 
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
@@ -124,7 +95,8 @@ namespace Podcast
 
         private void btnDeletePodcast_Click(object sender, EventArgs e)
         {
-            tbEpisodeSummary.Clear();
+            string url = lvPodcast.SelectedItems[0].Tag.ToString();
+            Timers.Remove(url);
             PodcastFeed.Remove(lvPodcast);
         }
 
@@ -140,6 +112,7 @@ namespace Podcast
             {
                 PodcastFeed.ListEpisodes(lvPodcastEpisodes, lvPodcast);
                 lblPodcast.Text = lvPodcast.SelectedItems[0].SubItems[1].Text;
+                tbUrl.Text = lvPodcast.SelectedItems[0].Tag.ToString();
             }
         }
 
@@ -157,7 +130,8 @@ namespace Podcast
 
         private void btnSaveCategoryChanges_Click(object sender, EventArgs e)
         {
-            Category.SaveChanges(lvCategory, lvPodcast, tbCategories);
+            // lvPodcast,
+            Category.SaveChanges(lvCategory, tbCategories);
             UpdateComboBox(cbChangeCategory);
         }
 
@@ -165,23 +139,19 @@ namespace Podcast
         {
             string url = tbUrl.Text;
             PodcastFeed.SaveChanges(lvPodcast, cbUpdate, cbChangeCategory, url);
-            //ChangeTimer();
         }
 
         private async void timer1_Tick(object sender, EventArgs e)
         {
-            
             Timer timer = (Timer)sender;
             if (timer.Tag != null)
             {
                 string newUrl = (string)timer.Tag;
-
                 await PodcastFeed.readRss.LoadRss(newUrl);
-
             }
         }
 
-        public void setLoadTimer()
+        private void setTimerOnLoad()
         {
             int setInterval = 0;
 
@@ -212,7 +182,7 @@ namespace Podcast
                     timers.Tag = item.Tag.ToString();
 
                     timers.Tick += new EventHandler(timer1_Tick);
-                    Timer.Add(item.Tag.ToString(), timers);
+                    Timers.Add(item.Tag.ToString(), timers);
 
                     timers.Start();
                 }
@@ -224,7 +194,7 @@ namespace Podcast
             Category.AddCategoryXml(lvCategory);
             UpdateComboBox(cbChangeCategory);
             PodcastFeed.AddPodXml(lvPodcast);
-            Task.Delay(5000).ContinueWith(t => setLoadTimer());
+            Task.Delay(5000).ContinueWith(t => setTimerOnLoad());
         }
     }
 }

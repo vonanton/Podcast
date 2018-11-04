@@ -27,16 +27,14 @@ namespace Podcast.DAL
                 
         }
 
-        public void LoadPodcast(List<ListViewItem> test)
+        public void LoadPodcast(List<ListViewItem> XmlPodList)
         {
-
             XmlDocument doc = new XmlDocument();
             doc.Load("Poddar.xml");
 
             var urlEl = doc.GetElementsByTagName("Url");
             var frekvensEl = doc.GetElementsByTagName("Frekvens");
             var kategoriEl = doc.GetElementsByTagName("Kategori");
-
 
             for(int i = 0; i < urlEl.Count; i++)
             {
@@ -45,7 +43,7 @@ namespace Podcast.DAL
                 frekvensEl[i].InnerText,
                 kategoriEl[i].InnerText
             });
-                test.Add(listViewItem);
+                XmlPodList.Add(listViewItem);
             }
         }
     }

@@ -110,7 +110,7 @@
             // 
             this.tbUrl.Location = new System.Drawing.Point(16, 338);
             this.tbUrl.Name = "tbUrl";
-            this.tbUrl.Size = new System.Drawing.Size(100, 26);
+            this.tbUrl.Size = new System.Drawing.Size(304, 26);
             this.tbUrl.TabIndex = 2;
             // 
             // cbUpdate
@@ -120,7 +120,7 @@
             "5 Minutes",
             "10 Minutes",
             "15 Minutes"});
-            this.cbUpdate.Location = new System.Drawing.Point(147, 336);
+            this.cbUpdate.Location = new System.Drawing.Point(340, 336);
             this.cbUpdate.Name = "cbUpdate";
             this.cbUpdate.Size = new System.Drawing.Size(152, 28);
             this.cbUpdate.TabIndex = 3;
@@ -128,7 +128,7 @@
             // cbChangeCategory
             // 
             this.cbChangeCategory.FormattingEnabled = true;
-            this.cbChangeCategory.Location = new System.Drawing.Point(330, 336);
+            this.cbChangeCategory.Location = new System.Drawing.Point(515, 336);
             this.cbChangeCategory.Name = "cbChangeCategory";
             this.cbChangeCategory.Size = new System.Drawing.Size(121, 28);
             this.cbChangeCategory.TabIndex = 4;
@@ -145,7 +145,7 @@
             // lblUpdate
             // 
             this.lblUpdate.AutoSize = true;
-            this.lblUpdate.Location = new System.Drawing.Point(143, 313);
+            this.lblUpdate.Location = new System.Drawing.Point(332, 313);
             this.lblUpdate.Name = "lblUpdate";
             this.lblUpdate.Size = new System.Drawing.Size(160, 20);
             this.lblUpdate.TabIndex = 6;
@@ -154,7 +154,7 @@
             // lblCategory
             // 
             this.lblCategory.AutoSize = true;
-            this.lblCategory.Location = new System.Drawing.Point(326, 313);
+            this.lblCategory.Location = new System.Drawing.Point(511, 313);
             this.lblCategory.Name = "lblCategory";
             this.lblCategory.Size = new System.Drawing.Size(72, 20);
             this.lblCategory.TabIndex = 7;
@@ -185,7 +185,7 @@
             this.lvCategory.BackColor = System.Drawing.Color.Honeydew;
             this.lvCategory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-            this.lvCategory.Location = new System.Drawing.Point(898, 14);
+            this.lvCategory.Location = new System.Drawing.Point(896, 14);
             this.lvCategory.Name = "lvCategory";
             this.lvCategory.Size = new System.Drawing.Size(418, 220);
             this.lvCategory.TabIndex = 11;
@@ -195,18 +195,18 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Kategorier";
-            this.columnHeader1.Width = 411;
+            this.columnHeader1.Width = 200;
             // 
             // tbCategories
             // 
-            this.tbCategories.Location = new System.Drawing.Point(898, 243);
+            this.tbCategories.Location = new System.Drawing.Point(896, 243);
             this.tbCategories.Name = "tbCategories";
             this.tbCategories.Size = new System.Drawing.Size(418, 26);
             this.tbCategories.TabIndex = 12;
             // 
             // btnAddCategory
             // 
-            this.btnAddCategory.Location = new System.Drawing.Point(898, 276);
+            this.btnAddCategory.Location = new System.Drawing.Point(896, 276);
             this.btnAddCategory.Name = "btnAddCategory";
             this.btnAddCategory.Size = new System.Drawing.Size(122, 32);
             this.btnAddCategory.TabIndex = 13;
@@ -216,7 +216,7 @@
             // 
             // btnSaveCategoryChanges
             // 
-            this.btnSaveCategoryChanges.Location = new System.Drawing.Point(1044, 276);
+            this.btnSaveCategoryChanges.Location = new System.Drawing.Point(1042, 276);
             this.btnSaveCategoryChanges.Name = "btnSaveCategoryChanges";
             this.btnSaveCategoryChanges.Size = new System.Drawing.Size(129, 32);
             this.btnSaveCategoryChanges.TabIndex = 14;
@@ -226,7 +226,7 @@
             // 
             // btnDeleteCategory
             // 
-            this.btnDeleteCategory.Location = new System.Drawing.Point(1201, 276);
+            this.btnDeleteCategory.Location = new System.Drawing.Point(1199, 276);
             this.btnDeleteCategory.Name = "btnDeleteCategory";
             this.btnDeleteCategory.Size = new System.Drawing.Size(118, 32);
             this.btnDeleteCategory.TabIndex = 15;
@@ -237,7 +237,7 @@
             // lblPodcast
             // 
             this.lblPodcast.AutoSize = true;
-            this.lblPodcast.Location = new System.Drawing.Point(8, 472);
+            this.lblPodcast.Location = new System.Drawing.Point(8, 444);
             this.lblPodcast.Name = "lblPodcast";
             this.lblPodcast.Size = new System.Drawing.Size(301, 20);
             this.lblPodcast.TabIndex = 16;
@@ -248,9 +248,9 @@
             this.lvPodcastEpisodes.BackColor = System.Drawing.Color.Honeydew;
             this.lvPodcastEpisodes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2});
-            this.lvPodcastEpisodes.Location = new System.Drawing.Point(12, 495);
+            this.lvPodcastEpisodes.Location = new System.Drawing.Point(12, 467);
             this.lvPodcastEpisodes.Name = "lvPodcastEpisodes";
-            this.lvPodcastEpisodes.Size = new System.Drawing.Size(752, 145);
+            this.lvPodcastEpisodes.Size = new System.Drawing.Size(752, 183);
             this.lvPodcastEpisodes.TabIndex = 17;
             this.lvPodcastEpisodes.UseCompatibleStateImageBehavior = false;
             this.lvPodcastEpisodes.View = System.Windows.Forms.View.Details;
@@ -259,7 +259,7 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Avsnitt";
-            this.columnHeader2.Width = 133;
+            this.columnHeader2.Width = 350;
             // 
             // lblPodcastEpisode
             // 
@@ -277,7 +277,7 @@
             this.tbEpisodeSummary.Multiline = true;
             this.tbEpisodeSummary.Name = "tbEpisodeSummary";
             this.tbEpisodeSummary.ReadOnly = true;
-            this.tbEpisodeSummary.Size = new System.Drawing.Size(501, 235);
+            this.tbEpisodeSummary.Size = new System.Drawing.Size(501, 245);
             this.tbEpisodeSummary.TabIndex = 20;
             // 
             // timer1
@@ -289,7 +289,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1328, 651);
+            this.ClientSize = new System.Drawing.Size(1328, 662);
             this.Controls.Add(this.tbEpisodeSummary);
             this.Controls.Add(this.lblPodcastEpisode);
             this.Controls.Add(this.lvPodcastEpisodes);

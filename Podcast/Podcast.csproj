@@ -52,6 +52,7 @@
     <Compile Include="BLL\PodcastFeed.cs" />
     <Compile Include="DAL\LoadXml.cs" />
     <Compile Include="DAL\ReadRss.cs" />
+    <Compile Include="DAL\RemoveXml.cs" />
     <Compile Include="DAL\SaveXml.cs" />
     <Compile Include="Interfaces\IProperties.cs" />
     <Compile Include="PL\Form1.cs">
