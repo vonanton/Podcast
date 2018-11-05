@@ -43,11 +43,12 @@ namespace Podcast.DAL
                 foreach (SyndicationItem episodes in feed.Items)
                 {
                     EpisodeTitle = episodes.Title.Text;
+                    string Summary = episodes.Summary.Text;
 
                     if(!EpisodeSummary.ContainsKey(EpisodeTitle))
                     {
                         EpisodeSummary.Add(EpisodeTitle, new List<string>());
-                        EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
+                        EpisodeSummary[EpisodeTitle].Add(Summary);
                     }
                     if(!Episodes.ContainsKey(PodTitle))
                     {
@@ -57,28 +58,21 @@ namespace Podcast.DAL
                     else
                     {
                         bool EpisodeExists = Episodes.Values.Any(value => value.Contains(EpisodeTitle));
-                        bool SummaryExists = EpisodeSummary.Values.Any(value => value.Contains(episodes.Summary.Text));
+                        bool SummaryExists = EpisodeSummary.Values.Any(value => value.Contains(Summary));
                         if (!EpisodeExists)
                         {
                             Episodes[PodTitle].Add(EpisodeTitle);
                         }   
                         if(!SummaryExists)
                         {
-                            EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
+                            EpisodeSummary[EpisodeTitle].Add(Summary);
                         }
                     }
                 }
-            });
-            
+            });   
         }
 
-        public void saveXmltest(string url, string frekvens, string kategori)
-        {
-            SaveXml saveXml = new SaveXml();
-            saveXml.SavePodcast(url, frekvens, kategori);
-        }
-
-        public int numberOfItems(string feedUrl)
+        private int numberOfItems(string feedUrl)
         {
             using (XmlReader reader = XmlReader.Create(feedUrl))
             { 
