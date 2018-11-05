@@ -1,10 +1,7 @@
 ﻿using Podcast.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.ServiceModel.Syndication;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -28,57 +25,54 @@ namespace Podcast.DAL
         public async Task LoadRss(string rssUrl)
         {
             await Task.Run(() =>
-            { 
-                //https://cdn.radioplay.se/data/rss/498.xml
-                //https://cdn.radioplay.se/data/rss/490.xml
-                //https://cdn.radioplay.se/data/rss/503.xml
-
-                XmlReader reader = XmlReader.Create(rssUrl);
-                SyndicationFeed feed = SyndicationFeed.Load(reader);
-                reader.Close();
-
-                EpisodeCount = numberOfItems(rssUrl).ToString();
-                PodTitle = feed.Title.Text;
-                
-                foreach (SyndicationItem episodes in feed.Items)
+            {
+                try
                 {
-                    EpisodeTitle = episodes.Title.Text;
+                    XmlReader reader = XmlReader.Create(rssUrl);
+                    SyndicationFeed feed = SyndicationFeed.Load(reader);
+                    reader.Close();
 
-                    if(!EpisodeSummary.ContainsKey(EpisodeTitle))
+                    EpisodeCount = numberOfItems(rssUrl).ToString();
+                    PodTitle = feed.Title.Text;
+                
+                    foreach (SyndicationItem episodes in feed.Items)
                     {
-                        EpisodeSummary.Add(EpisodeTitle, new List<string>());
-                        EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
-                    }
-                    if(!Episodes.ContainsKey(PodTitle))
-                    {
-                        Episodes.Add(PodTitle, new List<string>());
-                        Episodes[PodTitle].Add(EpisodeTitle);
-                    }
-                    else
-                    {
-                        bool EpisodeExists = Episodes.Values.Any(value => value.Contains(EpisodeTitle));
-                        bool SummaryExists = EpisodeSummary.Values.Any(value => value.Contains(episodes.Summary.Text));
-                        if (!EpisodeExists)
+                        EpisodeTitle = episodes.Title.Text;
+                        string Summary = episodes.Summary.Text;
+
+                        if(!EpisodeSummary.ContainsKey(EpisodeTitle))
                         {
+                            EpisodeSummary.Add(EpisodeTitle, new List<string>());
+                            EpisodeSummary[EpisodeTitle].Add(Summary);
+                        }
+                        if(!Episodes.ContainsKey(PodTitle))
+                        {
+                            Episodes.Add(PodTitle, new List<string>());
                             Episodes[PodTitle].Add(EpisodeTitle);
-                        }   
-                        if(!SummaryExists)
+                        }
+                        else
                         {
-                            EpisodeSummary[EpisodeTitle].Add(episodes.Summary.Text);
+                            bool EpisodeExists = Episodes.Values.Any(value => value.Contains(EpisodeTitle));
+                            bool SummaryExists = EpisodeSummary.Values.Any(value => value.Contains(Summary));
+                            if (!EpisodeExists)
+                            {
+                                Episodes[PodTitle].Add(EpisodeTitle);
+                            }   
+                            if(!SummaryExists)
+                            {
+                                EpisodeSummary[EpisodeTitle].Add(Summary);
+                            }
                         }
                     }
                 }
-            });
-            
+                catch
+                {
+                    MessageBox.Show("Något gick fel. Har du rätt podcast?");
+                }
+            });            
         }
 
-        public void saveXmltest(string url, string frekvens, string kategori)
-        {
-            SaveXml saveXml = new SaveXml();
-            saveXml.SavePodcast(url, frekvens, kategori);
-        }
-
-        public int numberOfItems(string feedUrl)
+        private int numberOfItems(string feedUrl)
         {
             using (XmlReader reader = XmlReader.Create(feedUrl))
             { 

@@ -50,8 +50,11 @@
     <Compile Include="BLL\Category.cs" />
     <Compile Include="BLL\Podcast.cs" />
     <Compile Include="BLL\PodcastFeed.cs" />
+    <Compile Include="BLL\ValidateException.cs" />
+    <Compile Include="BLL\ValidateMessages.cs" />
     <Compile Include="DAL\LoadXml.cs" />
     <Compile Include="DAL\ReadRss.cs" />
+    <Compile Include="DAL\RemoveXml.cs" />
     <Compile Include="DAL\SaveXml.cs" />
     <Compile Include="Interfaces\IProperties.cs" />
     <Compile Include="PL\Form1.cs">
@@ -73,6 +76,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -87,6 +91,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="bin\Debug\logo.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
