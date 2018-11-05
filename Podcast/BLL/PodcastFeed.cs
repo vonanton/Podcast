@@ -1,25 +1,18 @@
 ﻿using Podcast.DAL;
 using Podcast.Interfaces;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel.Syndication;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
 
 namespace Podcast.BLL
 {
     public class PodcastFeed : Podcast, IProperties
     {
         public ReadRss readRss = new ReadRss();
-
+        ValidateMessages validation = new ValidateMessages();
         public Dictionary<string, List<string>> Episodes { get; set; }
         public Dictionary<string, List<string>> EpisodeSummary { get; set; }
         public string EpisodeCount { get; set; }
         public string PodTitle { get; set; }
-        ValidateMessages validation = new ValidateMessages();
 
         public PodcastFeed()
         {
@@ -34,9 +27,7 @@ namespace Podcast.BLL
                 saveXml.SavePodcast(url, frekvens, category);
                 EpisodeCount = readRss.EpisodeCount;
                 PodTitle = readRss.PodTitle;
-
                 base.Add(listView, EpisodeCount, PodTitle, frekvens, category, url);
-
         }
 
         public async void AddPodXml(ListView listView)
@@ -67,7 +58,6 @@ namespace Podcast.BLL
                     if (podTitle == episodes.Key)
                     {
                         base.Add(lvPodcastEpisodes, value);
-
                     }
                 }
             }
@@ -92,9 +82,7 @@ namespace Podcast.BLL
         {
                 string frekvens = frequence.GetItemText(frequence.SelectedItem);
                 string kategori = changeCategory.GetItemText(changeCategory.SelectedItem);
-
                 Remove(lvPodcast);
-
                 Add(lvPodcast, url, frekvens, kategori);
         }
 
@@ -106,7 +94,6 @@ namespace Podcast.BLL
                 string kategori = listView.SelectedItems[0].SubItems[3].Text;
 
                 removeXml.RemovePodcast(url, kategori, frekvens);
-
                 Episodes.Remove(listView.SelectedItems[0].SubItems[1].Text);
                 base.Remove(listView);
         }

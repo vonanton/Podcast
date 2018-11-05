@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Xml.Linq;
 
 namespace Podcast.DAL
@@ -20,7 +16,7 @@ namespace Podcast.DAL
                     where Kategori != null && Kategori.Value == kategori
                     where Frekvens != null && Frekvens.Value == frekvens
                     select node;
-            items.ToList().ForEach(x => x.Remove());
+            items.ToList().ForEach(xml => xml.Remove());
             doc.Save("Poddar.xml");
         }
     }

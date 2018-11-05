@@ -1,16 +1,9 @@
-﻿using Podcast.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace Podcast.BLL
 {
     public abstract class Podcast
     {
-       
         public virtual void Add(ListView listView, string episodeCount, string podTitle, string frekvens, string category, string url)
         {
             var listViewItem = new ListViewItem(new[] {

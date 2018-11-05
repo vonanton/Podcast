@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.ServiceModel.Syndication;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -13,32 +9,33 @@ namespace Podcast.BLL
     class ValidateException
     {
         ValidateMessages message = new ValidateMessages();
+
         public bool UrlNotEmpty(TextBox textBox)
         {
             if(string.IsNullOrWhiteSpace(textBox.Text))
             {
                 message.UrlEmpty();
                 return false;
-
             }
             else
             {
                 return true;
             }
         }
+
         public bool CategoryNotEmpty(TextBox textBox)
         {
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 message.CategoryEmpty();
                 return false;
-
             }
             else
             {
                 return true;
             }
         }
+
         public bool ListViewNotSelected(ListView listView)
         {
             if (listView.SelectedItems.Count > 0)
@@ -64,7 +61,8 @@ namespace Podcast.BLL
                 return true;
             }
         }
-        public bool Testande(string url)
+
+        public bool ValidRssUrl(string url)
         {
             try
             {
@@ -78,10 +76,10 @@ namespace Podcast.BLL
             {
                 message.ValidUrl();
                 return false;
-
             }
         }
-        public bool ValidateUrl(Dictionary<string, Timer> timer, string url)
+
+        public bool UrlExists(Dictionary<string, Timer> timer, string url)
         {
             foreach (var item in timer)
             {

@@ -1,9 +1,5 @@
 ﻿using Podcast.DAL;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Podcast.BLL
@@ -35,15 +31,11 @@ namespace Podcast.BLL
 
         public override void SaveChanges(ListView lvCategory, TextBox categoryText)
         {
-            
-                string newCategory = categoryText.Text;
-
-                ListOfCategorys.Remove(lvCategory.SelectedItems[0].Text);
-                ListOfCategorys.Add(newCategory);
-                saveXml.SaveCategory(ListOfCategorys);
-                base.SaveChanges(lvCategory, categoryText);
-
-            
+            string newCategory = categoryText.Text;
+            ListOfCategorys.Remove(lvCategory.SelectedItems[0].Text);
+            ListOfCategorys.Add(newCategory);
+            saveXml.SaveCategory(ListOfCategorys);
+            base.SaveChanges(lvCategory, categoryText);
         }
 
         public override void Remove(ListView listView)
