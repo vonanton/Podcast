@@ -22,6 +22,14 @@ namespace Podcast.BLL
             base.Add(listView, Category);
         }
 
+        public void AddCategoryXml(ListView listView, string categoryText)
+        {
+            string Category = categoryText;
+            ListOfCategorys.Add(Category);
+            
+            base.Add(listView, Category);
+        }
+
         public override void SaveChanges(ListView lvCategory, ListView lvPodcast, TextBox categoryText)
         {
             string newCategory = categoryText.Text;
