@@ -30,17 +30,11 @@ namespace Podcast.BLL
             });
             listView.Items.Add(listViewItem);  
         }
-        //ListView lvPodcast, parameter
+
         public virtual void SaveChanges(ListView lvCategory, TextBox textBox)
         {
             lvCategory.SelectedItems[0].Text = textBox.Text;
         }
-
-        /*public virtual void SaveChanges(ListView listView, ComboBox frequence, ComboBox category)
-        {
-            listView.SelectedItems[0].SubItems[2].Text = frequence.GetItemText(frequence.SelectedItem);
-            listView.SelectedItems[0].SubItems[3].Text = category.GetItemText(category.SelectedItem);
-        }*/
 
         public virtual void Remove(ListView listView)
         {

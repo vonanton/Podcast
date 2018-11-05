@@ -11,8 +11,7 @@ namespace Podcast.DAL
 {
     class LoadXml
     {
-        
-
+      
         public void LoadCategory(List<string> kategorier)
         {
             XmlDocument doc = new XmlDocument();
@@ -23,8 +22,7 @@ namespace Podcast.DAL
             for(int i = 0; i < kategoriEl.Count; i++)
             {
                 kategorier.Add(kategoriEl[i].InnerText);
-            }
-                
+            }    
         }
 
         public void LoadPodcast(List<ListViewItem> XmlPodList)

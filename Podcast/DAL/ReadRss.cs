@@ -69,8 +69,7 @@ namespace Podcast.DAL
                         }
                     }
                 }
-            });
-            
+            });   
         }
 
         private int numberOfItems(string feedUrl)

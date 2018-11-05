@@ -27,7 +27,6 @@ namespace Podcast.BLL
             EpisodeSummary = readRss.EpisodeSummary;
         }
 
-
         public async void Add(ListView listView, string url, string frekvens, string category)
         {
             SaveXml saveXml = new SaveXml();
@@ -62,19 +61,19 @@ namespace Podcast.BLL
             string podTitle = lvPodcast.SelectedItems[0].SubItems[1].Text;
             foreach (var episodes in Episodes)
             {
-                    foreach (var value in episodes.Value)
+                foreach (var value in episodes.Value)
+                {
+                    if (podTitle == episodes.Key)
                     {
-                        if (podTitle == episodes.Key)
-                        {
-                            base.Add(lvPodcastEpisodes, value);
-                        }
-                    } 
+                        base.Add(lvPodcastEpisodes, value);
+
+                    }
+                }
             }
         }
 
         public void ListEpisodeSummary(ListView lvPodcastEpisode, TextBox summaryText)
         {
-
             string episodeTitle = lvPodcastEpisode.SelectedItems[0].Text;
             foreach (var summary in EpisodeSummary)
             {

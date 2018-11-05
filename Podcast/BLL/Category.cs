@@ -31,7 +31,7 @@ namespace Podcast.BLL
                 base.Add(listView, category);
             }
         }
-        //ListView lvPodcast, parameter
+
         public override void SaveChanges(ListView lvCategory, TextBox categoryText)
         {
             string newCategory = categoryText.Text;

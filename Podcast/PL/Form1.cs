@@ -19,13 +19,11 @@ namespace Podcast
         PodcastFeed PodcastFeed = new PodcastFeed();
         Category Category = new Category();
         
-        List<string> Urls { get; set; }
         public Dictionary<string, Timer> Timers { get; set; }
 
         public Form1()
         {
             InitializeComponent();
-            Urls = new List<string>();
             Timers = new Dictionary<string, Timer>();
             lblPodcastEpisode.Text = "";
             lblPodcast.Text = "";
@@ -43,7 +41,6 @@ namespace Podcast
         private void btnAddPodcast_Click(object sender, EventArgs e)
         {   
             string newUrl = tbUrl.Text;
-            Urls.Add(newUrl);
             string frequence = cbUpdate.GetItemText(cbUpdate.SelectedItem);
             string category = cbChangeCategory.GetItemText(cbChangeCategory.SelectedItem);
             PodcastFeed.Add(lvPodcast, newUrl, frequence, category);
@@ -130,7 +127,6 @@ namespace Podcast
 
         private void btnSaveCategoryChanges_Click(object sender, EventArgs e)
         {
-            // lvPodcast,
             Category.SaveChanges(lvCategory, tbCategories);
             UpdateComboBox(cbChangeCategory);
         }
@@ -174,7 +170,6 @@ namespace Podcast
                         setInterval = 900000;
                     }
              
-
                     Timer timers = new Timer();
                     timers.Interval = setInterval;
                     timers.Enabled = true;

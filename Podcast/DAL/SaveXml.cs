@@ -16,7 +16,8 @@ namespace Podcast.DAL
             if(File.Exists("Poddar.xml"))
             {
                 document = XDocument.Load("Poddar.xml");
-            }else
+            }
+            else
             {
                 MessageBox.Show("No such file Exists'");
             }
@@ -30,7 +31,6 @@ namespace Podcast.DAL
             document.Root.Add(newPodcast);
 
             document.Save("Poddar.xml");
-            
         }
 
         public void SaveCategory(List<string> category)
