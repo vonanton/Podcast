@@ -50,6 +50,8 @@
     <Compile Include="BLL\Category.cs" />
     <Compile Include="BLL\Podcast.cs" />
     <Compile Include="BLL\PodcastFeed.cs" />
+    <Compile Include="BLL\ValidateException.cs" />
+    <Compile Include="BLL\ValidateMessages.cs" />
     <Compile Include="DAL\LoadXml.cs" />
     <Compile Include="DAL\ReadRss.cs" />
     <Compile Include="DAL\RemoveXml.cs" />

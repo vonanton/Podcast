@@ -19,7 +19,7 @@ namespace Podcast.BLL
         public Dictionary<string, List<string>> EpisodeSummary { get; set; }
         public string EpisodeCount { get; set; }
         public string PodTitle { get; set; }
-        
+        ValidateMessages validation = new ValidateMessages();
 
         public PodcastFeed()
         {
@@ -29,13 +29,14 @@ namespace Podcast.BLL
 
         public async void Add(ListView listView, string url, string frekvens, string category)
         {
-            SaveXml saveXml = new SaveXml();
-            await readRss.LoadRss(url);
-            saveXml.SavePodcast(url, frekvens, category);
-            EpisodeCount = readRss.EpisodeCount;
-            PodTitle = readRss.PodTitle;
+                SaveXml saveXml = new SaveXml();
+                await readRss.LoadRss(url);
+                saveXml.SavePodcast(url, frekvens, category);
+                EpisodeCount = readRss.EpisodeCount;
+                PodTitle = readRss.PodTitle;
 
-            base.Add(listView, EpisodeCount, PodTitle, frekvens, category, url);
+                base.Add(listView, EpisodeCount, PodTitle, frekvens, category, url);
+
         }
 
         public async void AddPodXml(ListView listView)
@@ -89,25 +90,25 @@ namespace Podcast.BLL
 
         public void SaveChanges(ListView lvPodcast, ComboBox frequence, ComboBox changeCategory, string url)
         {
-            string frekvens = frequence.GetItemText(frequence.SelectedItem);
-            string kategori = changeCategory.GetItemText(changeCategory.SelectedItem);
-            
-            Remove(lvPodcast);
-            
-            Add(lvPodcast, url, frekvens, kategori);
+                string frekvens = frequence.GetItemText(frequence.SelectedItem);
+                string kategori = changeCategory.GetItemText(changeCategory.SelectedItem);
+
+                Remove(lvPodcast);
+
+                Add(lvPodcast, url, frekvens, kategori);
         }
 
         public override void Remove(ListView listView)
         {
-            RemoveXml removeXml = new RemoveXml();
-            string url = listView.SelectedItems[0].Tag.ToString();
-            string frekvens = listView.SelectedItems[0].SubItems[2].Text;
-            string kategori = listView.SelectedItems[0].SubItems[3].Text;
-            
-            removeXml.RemovePodcast(url, kategori, frekvens);
+                RemoveXml removeXml = new RemoveXml();
+                string url = listView.SelectedItems[0].Tag.ToString();
+                string frekvens = listView.SelectedItems[0].SubItems[2].Text;
+                string kategori = listView.SelectedItems[0].SubItems[3].Text;
 
-            Episodes.Remove(listView.SelectedItems[0].SubItems[1].Text);
-            base.Remove(listView);
+                removeXml.RemovePodcast(url, kategori, frekvens);
+
+                Episodes.Remove(listView.SelectedItems[0].SubItems[1].Text);
+                base.Remove(listView);
         }
     }
 }

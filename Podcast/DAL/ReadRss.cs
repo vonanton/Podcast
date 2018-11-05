@@ -27,8 +27,13 @@ namespace Podcast.DAL
 
         public async Task LoadRss(string rssUrl)
         {
+            
+
+            
             await Task.Run(() =>
-            { 
+            {
+            //try
+            //{
                 //https://cdn.radioplay.se/data/rss/498.xml
                 //https://cdn.radioplay.se/data/rss/490.xml
                 //https://cdn.radioplay.se/data/rss/503.xml
@@ -69,7 +74,13 @@ namespace Podcast.DAL
                         }
                     }
                 }
-            });   
+                //}
+                //catch(System.ArgumentException)
+                //{
+                //    MessageBox.Show("Argument exception");
+                //}
+            });
+            
         }
 
         private int numberOfItems(string feedUrl)

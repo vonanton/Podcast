@@ -18,6 +18,7 @@ namespace Podcast
     {
         PodcastFeed PodcastFeed = new PodcastFeed();
         Category Category = new Category();
+        ValidateException validateException = new ValidateException();
         
         public Dictionary<string, Timer> Timers { get; set; }
 
@@ -39,13 +40,17 @@ namespace Podcast
         }
 
         private void btnAddPodcast_Click(object sender, EventArgs e)
-        {   
-            string newUrl = tbUrl.Text;
-            string frequence = cbUpdate.GetItemText(cbUpdate.SelectedItem);
-            string category = cbChangeCategory.GetItemText(cbChangeCategory.SelectedItem);
-            PodcastFeed.Add(lvPodcast, newUrl, frequence, category);
-            
-            setTimer();
+        {
+            if (validateException.UrlNotEmpty(tbUrl) && validateException.ComboBoxEmpty(cbUpdate) && validateException.Testande(tbUrl.Text) && validateException.ValidateUrl(Timers, tbUrl.Text))
+            {
+                string newUrl = tbUrl.Text;
+                string frequence = cbUpdate.GetItemText(cbUpdate.SelectedItem);
+                string category = cbChangeCategory.GetItemText(cbChangeCategory.SelectedItem);
+                PodcastFeed.Add(lvPodcast, newUrl, frequence, category);
+
+                setTimer();
+            }
+            //if (Uri.IsWellFormedUriString(myURL, UriKind.RelativeOrAbsolute))
         }
 
         private void setTimer()
@@ -53,13 +58,13 @@ namespace Podcast
             int setInterval = 0;
             if(cbUpdate.SelectedItem.ToString() == "5 Minutes")
             {
-                setInterval = 10000;
-                    //300000;
+                setInterval = 300000;
+                    
             }
             if(cbUpdate.SelectedItem.ToString() == "10 Minutes")
             {
-                setInterval = 20000;
-                    //600000;
+                setInterval = 600000;
+                    
             }
             if (cbUpdate.SelectedItem.ToString() == "15 Minutes")
             {
@@ -80,21 +85,33 @@ namespace Podcast
 
         private void btnAddCategory_Click(object sender, EventArgs e)
         {
-            Category.Add(lvCategory, tbCategories.Text);
-            UpdateComboBox(cbChangeCategory);
+            if (validateException.CategoryNotEmpty(tbCategories))
+            {
+                Category.Add(lvCategory, tbCategories.Text);
+                UpdateComboBox(cbChangeCategory);
+            }
+            
         }
 
         private void btnDeleteCategory_Click(object sender, EventArgs e)
         {
-            Category.Remove(lvCategory);
-            UpdateComboBox(cbChangeCategory);
+            if (validateException.ListViewNotSelected(lvCategory))
+            {
+                Category.Remove(lvCategory);
+                UpdateComboBox(cbChangeCategory);
+            }
+            
         }
 
         private void btnDeletePodcast_Click(object sender, EventArgs e)
         {
-            string url = lvPodcast.SelectedItems[0].Tag.ToString();
-            Timers.Remove(url);
-            PodcastFeed.Remove(lvPodcast);
+            if (validateException.ListViewNotSelected(lvPodcast))
+            {
+                string url = lvPodcast.SelectedItems[0].Tag.ToString();
+                Timers.Remove(url);
+                PodcastFeed.Remove(lvPodcast);
+            }
+                
         }
 
 
@@ -127,14 +144,22 @@ namespace Podcast
 
         private void btnSaveCategoryChanges_Click(object sender, EventArgs e)
         {
-            Category.SaveChanges(lvCategory, tbCategories);
-            UpdateComboBox(cbChangeCategory);
+            if (validateException.CategoryNotEmpty(tbCategories) && validateException.ListViewNotSelected(lvCategory))
+            {
+                Category.SaveChanges(lvCategory, tbCategories);
+                UpdateComboBox(cbChangeCategory);
+            }
+            
         }
 
         private void btnSavePodChanges_Click(object sender, EventArgs e)
         {
-            string url = tbUrl.Text;
-            PodcastFeed.SaveChanges(lvPodcast, cbUpdate, cbChangeCategory, url);
+            if (validateException.UrlNotEmpty(tbUrl) &&validateException.ListViewNotSelected(lvPodcast) && validateException.ComboBoxEmpty(cbUpdate))
+            {
+                string url = tbUrl.Text;
+                PodcastFeed.SaveChanges(lvPodcast, cbUpdate, cbChangeCategory, url);
+            }
+                
         }
 
         private async void timer1_Tick(object sender, EventArgs e)
@@ -157,13 +182,11 @@ namespace Podcast
                 {
                     if (item.SubItems[2].Text == "5 Minutes")
                     {
-                        setInterval = 10000;
-                        //300000;
+                        setInterval = 300000;
                     }
                     if (item.SubItems[2].Text == "10 Minutes")
                     {
-                        setInterval = 20000;
-                        //600000;
+                        setInterval = 600000;
                     }
                     if (item.SubItems[2].Text == "15 Minutes")
                     {
